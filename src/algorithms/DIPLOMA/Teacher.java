@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class Teacher {
 
-    private static ArrayList<Teacher> teachers;
-
     private String name;
     private int lesson;
 
@@ -13,12 +11,6 @@ public class Teacher {
     public Teacher(String name, int lesson) {
         this.name = name;
         this.lesson = lesson;
-
-        if(teachers == null){
-            teachers = new ArrayList<Teacher>();
-        }
-
-        teachers.add(this);
     }
 
     public String getName() {

@@ -30,6 +30,7 @@ public class Genes {
         initialGenes.add(new Teacher("Litra", 2));
         initialGenes.add(new Teacher("Litra", 3));
         initialGenes.add(new Teacher("Phys", 2));
+        initialGenes.add(new Teacher("Phys", 5));
 
         return initialGenes;
     }
