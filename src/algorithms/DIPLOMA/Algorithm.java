@@ -6,11 +6,11 @@ import java.util.List;
 
 public class Algorithm {
 
-    private static final int POPULATION_SIZE = 100000;
+    private static final int POPULATION_SIZE = 10;
     public static final double ELITE_RATE = 0.1;
     public static final double SURVIVE_RATE = 0.5;
     public static final double MUTATION_RATE = 0.2;
-    public static final double MAX_ITER = POPULATION_SIZE;
+    public static final double MAX_ITER = 1000;
     public static final int TARGET_SIZE = 5;
 
     private ArrayList<Teacher> GENES_POOL = Genes.generate();
@@ -22,36 +22,37 @@ public class Algorithm {
 
         for (int i = 0; i < POPULATION_SIZE; i++) {
             Genome genome = new Genome();
+            ArrayList<Teacher> teachers = new ArrayList<>();
             for (int j = 0; j < tsize; j++) {
-                genome.addTeacherToDay(GENES_POOL.get((int) (Math.random() * 14)));
+                teachers.add(GENES_POOL.get((int) (Math.random() * 14)));
             }
 
-            genome.calcFitness();
+            genome.setDay(teachers);
             population.add(genome);
         }
     }
 
     private Genome arrayModify(Genome g1, Genome g2, int spos) {
-        Genome child = g1;
+        Genome child = new Genome(g1);
+        Genome child2 = new Genome(g2);
 
         ArrayList<Teacher> teachers = child.getDay();
 
         for (int i = spos; i < g1.getDay().size(); i++) {
-            teachers.set(i, g2.getDay().get(i));
+            child.getDay().set(i, child2.getDay().get(i));
         }
 
-        child.setDay(teachers);
-
-        return child;
+        return new Genome(child);
     }
 
     public void selectElite(List<Genome> population, List<Genome> children, int esize) {
         for (int i = 0; i < esize; i++) {
-            children.add(population.get(i));
+            children.add(new Genome(population.get(i)));
         }
     }
 
     public Genome mutate(Genome genome) {
+
         int tsize = TARGET_SIZE;
         int ipos = (int) (Math.random() * tsize);
         Teacher delta = GENES_POOL.get((int) (Math.random() * 14));
@@ -84,8 +85,8 @@ public class Algorithm {
                 mutate(genome);
             }
 
+            //genome.calcFitness();
             children.add(genome);
-
 
         }
         return children;
@@ -99,13 +100,12 @@ public class Algorithm {
             Collections.sort(population);
             System.out.print(i + " > ");
 
-            ArrayList<Teacher> teachers = population.get(i).getDay();
-
-            for (int j = 0; j < teachers.size(); j++) {
-                System.out.print(teachers.get(j).getName() + "-" + teachers.get(j).getLesson() + " => ");
+            for (Teacher t : population.get(0).getDay()){
+                System.out.print(t.getName() + "-" + t.getLesson() + "; ");
             }
 
-            System.out.println();
+            System.out.println(population.get(0).getFitness());
+//            ArrayList<Teacher> teachers = population.get(i).getDay();
 
             if (population.get(0).getFitness() == 0) {
                 break;

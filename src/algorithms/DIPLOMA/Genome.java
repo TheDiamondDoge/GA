@@ -8,6 +8,17 @@ public class Genome implements Comparable<Genome>{
     private int fitness;
 
 
+    public Genome() {
+    }
+
+    public Genome(Genome genome){
+        this.copy(genome);
+    }
+
+    public Genome(ArrayList<Teacher> day) {
+        this.setDay(day);
+    }
+
     public ArrayList<Teacher> getDay() {
         return day;
     }
@@ -22,6 +33,7 @@ public class Genome implements Comparable<Genome>{
 
     public void setDay(ArrayList<Teacher> day) {
         this.day = day;
+        this.calcFitness();
     }
 
     public int getFitness() {
@@ -32,10 +44,15 @@ public class Genome implements Comparable<Genome>{
         this.fitness = fitness;
     }
 
-    public void calcFitness(){
+    private void calcFitness(){
+        fitness = 0;
         for(int i = 0; i < day.size(); i++){
             fitness += Math.abs(day.get(i).getLesson() - i - 1);
         }
+    }
+
+    public void copy(Genome genome){
+        this.setDay(new ArrayList<>(genome.getDay()));
     }
 
     @Override
