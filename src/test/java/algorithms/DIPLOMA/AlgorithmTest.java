@@ -1,6 +1,7 @@
 package algorithms.DIPLOMA;
 
 import algorithms.DIPLOMA.model.Teacher;
+import algorithms.DIPLOMA.util.Printer;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -15,16 +16,21 @@ public class AlgorithmTest {
 
     @Test
     public void test(){
-        for(int i = 0; i < 100; i++){
-            go();
+        Printer printer = new Printer();
+        for (int j = 0; j < 100; j++) {
+            for (int i = 1; i <= 5; i++) {
+                printer.printDayOfTheWeek(i);
+                go(i);
+            }
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
     }
 
-    public void go() {
+    public void go(int dayOfTheWeek) {
         Algorithm algorithm = new Algorithm();
+        List<Genome> population = new ArrayList<>();
 
-        List<Genome> population = new ArrayList<Genome>();
-        algorithm.init(population);
+        algorithm.init(population, dayOfTheWeek);
 
         for (int i = 0; i < MAX_ITER; i++) {
             Collections.sort(population);
@@ -32,17 +38,13 @@ public class AlgorithmTest {
             if (population.get(0).getFitness() == 0) {
                 ArrayList<Teacher> teachers = population.get(0).getDay();
 
-                System.out.print(i + " > ");
-
-                for (Teacher t : population.get(0).getDay()){
-                    System.out.print(t.getName() + "-" + t.getLesson() + "; ");
-                }
-
-                System.out.println(population.get(0).getFitness());
-
                 for(int j = 0; j < teachers.size(); j++){
+                    System.out.print(i + " > ");
+                    System.out.print(teachers.get(j).getName() + "-" + teachers.get(j).getLesson() + "; ");
                     assertEquals(j+1, teachers.get(j).getLesson());
                 }
+
+                System.out.println();
                 break;
             }
 

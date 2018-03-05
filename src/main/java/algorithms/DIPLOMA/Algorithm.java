@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Algorithm {
 
-    private static final int POPULATION_SIZE = 10;
+    private static final int POPULATION_SIZE = 10000;
     public static final double ELITE_RATE = 0.1;
     public static final double SURVIVE_RATE = 0.5;
     public static final double MUTATION_RATE = 0.2;
@@ -18,17 +18,24 @@ public class Algorithm {
     private ArrayList<Teacher> GENES_POOL = Genes.generate();
 
 
-    public void init(List<Genome> population) {
-        int tsize = TARGET_SIZE;
-
+    public void init(List<Genome> population, int dayOfTheWeek) {
         for (int i = 0; i < POPULATION_SIZE; i++) {
             ArrayList<Teacher> teachers = new ArrayList<>();
-            for (int j = 0; j < tsize; j++) {
-                teachers.add(GENES_POOL.get((int) (Math.random() * 14)));
+
+            for (int j = 0; j < TARGET_SIZE; j++) {
+                Teacher teacher = randomTeacher();
+                while (teacher.getDayOfTheWeek() != dayOfTheWeek) {
+                    teacher = randomTeacher();
+                }
+                teachers.add(teacher);
             }
 
             population.add(new Genome(teachers));
         }
+    }
+
+    private Teacher randomTeacher(){
+        return GENES_POOL.get((int) (Math.random() * GENES_POOL.size() - 1));
     }
 
     private Genome arrayModify(Genome g1, Genome g2, int spos) {
@@ -48,8 +55,7 @@ public class Algorithm {
     }
 
     public Genome mutate(Genome genome) {
-        int tsize = TARGET_SIZE;
-        int ipos = (int) (Math.random() * tsize);
+        int ipos = (int) (Math.random() * TARGET_SIZE);
         Teacher delta = GENES_POOL.get((int) (Math.random() * 14));
 
         /////////////////////////////////////////////////////////////////
@@ -63,7 +69,6 @@ public class Algorithm {
 
     public List<Genome> mate(List<Genome> population) {
         int esize = (int) (POPULATION_SIZE * ELITE_RATE);
-        int tsize = TARGET_SIZE;
         List<Genome> children = new ArrayList<>();
 
         selectElite(population, children, esize);
@@ -71,7 +76,7 @@ public class Algorithm {
         for (int i = esize; i < POPULATION_SIZE; i++) {
             int i1 = (int) (Math.random() * POPULATION_SIZE * SURVIVE_RATE);
             int i2 = (int) (Math.random() * POPULATION_SIZE * SURVIVE_RATE);
-            int spos = (int) (Math.random() * tsize);
+            int spos = (int) (Math.random() * TARGET_SIZE);
 
             Genome genome = arrayModify(population.get(i1), population.get(i2), spos);
 
@@ -84,9 +89,9 @@ public class Algorithm {
         return children;
     }
 
-    public void go() {
+    public void go(int dayOfTheWeek) {
         List<Genome> population = new ArrayList<>();
-        init(population);
+        init(population, dayOfTheWeek);
 
         for (int i = 0; i < MAX_ITER; i++) {
             Collections.sort(population);
