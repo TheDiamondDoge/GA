@@ -1,6 +1,4 @@
-package algorithms.DIPLOMA;
-
-import algorithms.DIPLOMA.model.Teacher;
+package algorithms.DIPLOMA.model;
 
 import java.util.ArrayList;
 
@@ -41,6 +39,17 @@ public class Genome implements Comparable<Genome>{
 
     private void copy(Genome genome){
         this.setDay(new ArrayList<>(genome.getDay()));
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer listOfTeachers = new StringBuffer();
+
+        for(Teacher t : day){
+            listOfTeachers.append(t.toString() + " ");
+        }
+
+        return listOfTeachers.toString() + " " + fitness;
     }
 
     @Override

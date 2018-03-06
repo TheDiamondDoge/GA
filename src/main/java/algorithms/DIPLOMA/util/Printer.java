@@ -1,6 +1,7 @@
 package algorithms.DIPLOMA.util;
 
 public class Printer {
+
     private String dayOfTheWeekFromNumber(int dayOfTheWeek){
         switch (dayOfTheWeek){
             case 1: return "Monday";

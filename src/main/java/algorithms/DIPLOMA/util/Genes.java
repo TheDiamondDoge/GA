@@ -1,30 +1,26 @@
-package algorithms.DIPLOMA;
+package algorithms.DIPLOMA.util;
 
 import algorithms.DIPLOMA.model.Teacher;
 
 import java.util.ArrayList;
 
 public class Genes {
+
     private static ArrayList<Teacher> initialPool = new ArrayList<>();
 
 
-    public static ArrayList<Teacher> generate(){
+   static {
+       initialPool = generate();
+   }
 
-//        initialPool.add(new Teacher("Russian", 1));
-//        initialPool.add(new Teacher("Russian", 2));
-//        initialPool.add(new Teacher("Russian", 3));
-//        initialPool.add(new Teacher("Russian", 4));
-//        initialPool.add(new Teacher("Russian", 5));
-//        initialPool.add(new Teacher("Math", 2));
-//        initialPool.add(new Teacher("Math", 4));
-//        initialPool.add(new Teacher("Math", 5));
-//        initialPool.add(new Teacher("English", 3));
-//        initialPool.add(new Teacher("English", 1));
-//        initialPool.add(new Teacher("Litra", 1));
-//        initialPool.add(new Teacher("Litra", 2));
-//        initialPool.add(new Teacher("Litra", 3));
-//        initialPool.add(new Teacher("Phys", 2));
-//        initialPool.add(new Teacher("Phys", 5));
+    public Genes() {
+    }
+
+    public static ArrayList<Teacher> getInitialPool() {
+        return initialPool;
+    }
+
+    private static ArrayList<Teacher> generate(){
 
         //mon
         initialPool.add(new Teacher("Russian1", 1, 1));
@@ -100,7 +96,6 @@ public class Genes {
 //        initialPool.add(new Teacher("Russian5", 1, 5));
 //        initialPool.add(new Teacher("Russian5", 2, 5));
 //        initialPool.add(new Teacher("Russian5", 4, 5));
-
 
         return initialPool;
     }
