@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Algorithm {
 
-    private static final int POPULATION_SIZE = 10000;
+    private static final int POPULATION_SIZE = 10;
     public static final double ELITE_RATE = 0.1;
     public static final double SURVIVE_RATE = 0.5;
     public static final double MUTATION_RATE = 0.2;
@@ -56,9 +56,8 @@ public class Algorithm {
 
     public Genome mutate(Genome genome) {
         int ipos = (int) (Math.random() * TARGET_SIZE);
-        Teacher delta = GENES_POOL.get((int) (Math.random() * 14));
+        Teacher delta = randomTeacher();
 
-        /////////////////////////////////////////////////////////////////
         ArrayList<Teacher> teachers = genome.getDay();
         teachers.set(ipos, delta);
         genome.calcFitness();
@@ -95,20 +94,36 @@ public class Algorithm {
 
         for (int i = 0; i < MAX_ITER; i++) {
             Collections.sort(population);
-            System.out.print(i + " > ");
-
-            for (Teacher t : population.get(0).getDay()){
-                System.out.print(t.getName() + "-" + t.getLesson() + "; ");
-            }
-
-            System.out.println(population.get(0).getFitness());
+//            System.out.print(i + " > ");
+//
+//            for (Teacher t : population.get(0).getDay()){
+//                System.out.print(t.getName() + "-" + t.getLesson() + "; ");
+//            }
+//
+//            System.out.println(population.get(0).getFitness());
 
             if (population.get(0).getFitness() == 0) {
+
+                System.out.print(i + " > ");
+                for (Teacher t : population.get(0).getDay()){
+                    System.out.print(t.getName() + "-" + t.getLesson() + "; ");
+                }
+                System.out.println(population.get(0).getFitness());
+
+                deleteGenesOfFitPopulationFromPool(population.get(0));
                 break;
             }
 
             population = mate(population);
         }
 
+    }
+
+    private void deleteGenesOfFitPopulationFromPool(Genome genome){
+        genome.getDay().forEach(x -> deleteTeacherFromGenesPool(x.getTeacherId()));
+    }
+
+    public void deleteTeacherFromGenesPool(int teacherId){
+        GENES_POOL.removeIf(x -> x.getTeacherId() == teacherId);
     }
 }

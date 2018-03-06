@@ -2,19 +2,24 @@ package algorithms.DIPLOMA.model;
 
 
 public class Teacher {
+    //TODO in case of multithreading THIS id will be a problem cuz non-atomic
+    private static int teachersAmount = 0;
 
     private String name;
     private int lesson;
     private int dayOfTheWeek;
+    private int teacherId;
 
 
     public Teacher(String name, int lesson, int dayOfTheWeek) {
+        teacherId = getCurrentTeachersAmount();
         this.name = name;
         this.lesson = lesson;
         this.dayOfTheWeek = dayOfTheWeek;
     }
 
     public Teacher(String name, int lesson) {
+        teacherId++;
         this.name = name;
         this.lesson = lesson;
     }
@@ -41,6 +46,23 @@ public class Teacher {
 
     public void setDayOfTheWeek(int dayOfTheWeek) {
         this.dayOfTheWeek = dayOfTheWeek;
+    }
+
+    public int getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
+    }
+
+    private int getCurrentTeachersAmount(){
+        increaseTeachersAmount();
+        return teachersAmount;
+    }
+
+    private void increaseTeachersAmount(){
+        teachersAmount += 1;
     }
 
     @Override

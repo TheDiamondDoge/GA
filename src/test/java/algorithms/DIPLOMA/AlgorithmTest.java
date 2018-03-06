@@ -13,11 +13,13 @@ import static org.junit.Assert.*;
 public class AlgorithmTest {
 
     private final static int MAX_ITER = 1000;
+    private final int TEST_COUNT = 50;
+
 
     @Test
     public void test(){
         Printer printer = new Printer();
-        for (int j = 0; j < 100; j++) {
+        for (int j = 0; j < TEST_COUNT; j++) {
             for (int i = 1; i <= 5; i++) {
                 printer.printDayOfTheWeek(i);
                 go(i);
@@ -51,6 +53,5 @@ public class AlgorithmTest {
             population = algorithm.mate(population);
 
         }
-
     }
 }
