@@ -1,8 +1,8 @@
-package algorithms.DIPLOMA.util;
+package algorithms.DIPLOMA.util.Printers;
 
-public class Printer {
+public class DayPrinter {
 
-    private String dayOfTheWeekFromNumber(int dayOfTheWeek){
+    public String dayOfTheWeekFromNumber(int dayOfTheWeek){
         switch (dayOfTheWeek){
             case 1: return "Monday";
             case 2: return "Tuesday";

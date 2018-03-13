@@ -2,7 +2,7 @@ package algorithms.DIPLOMA.util;
 
 import algorithms.DIPLOMA.model.Genome;
 import algorithms.DIPLOMA.model.Teacher;
-import algorithms.DIPLOMA.util.read_write.XLSParser;
+import algorithms.DIPLOMA.util.read_write.impl.XLSParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +12,10 @@ public class Population {
     private static final int POPULATION_SIZE = 10;
     private static List<Teacher> GENES_POOL;
     private static int[] availableTeachersPerLesson;
-    public static final double ELITE_RATE = 0.1;
-    public static final double SURVIVE_RATE = 0.5;
-    public static final double MUTATION_RATE = 0.2;
-    public static int TARGET_SIZE = 5;
+    private static final double ELITE_RATE = 0.1;
+    private static final double SURVIVE_RATE = 0.5;
+    private static final double MUTATION_RATE = 0.2;
+    private static int TARGET_SIZE = 5;
 
     public Population() {
     }

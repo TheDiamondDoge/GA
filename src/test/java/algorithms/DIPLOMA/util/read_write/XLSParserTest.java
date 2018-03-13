@@ -1,8 +1,7 @@
 package algorithms.DIPLOMA.util.read_write;
 
+import algorithms.DIPLOMA.util.read_write.impl.XLSParser;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class XLSParserTest {
 

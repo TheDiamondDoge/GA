@@ -1,13 +1,11 @@
-package algorithms.DIPLOMA.util.read_write;
+package algorithms.DIPLOMA.util.read_write.impl;
 
-import algorithms.DIPLOMA.model.Genome;
 import algorithms.DIPLOMA.model.Teacher;
-import algorithms.DIPLOMA.util.read_write.impl.Parser;
+import algorithms.DIPLOMA.util.read_write.Parser;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
@@ -22,7 +20,7 @@ import java.util.stream.Collectors;
 
 public class XLSParser implements Parser {
 
-    private final String FILE_NAME = "C:\\Users\\aiksanov\\IdeaProjects\\GA\\src\\main\\resources\\test.xlsx";
+    private final String FILE_NAME = "C:\\Users\\aiksanov\\IdeaProjects\\GA\\src\\main\\resources\\init.xlsx";
     private static List<Teacher> teachers = new ArrayList<>();
 
 
@@ -54,10 +52,8 @@ public class XLSParser implements Parser {
 
                     if(currentCell.getColumnIndex() == 0){
                         teachersName = currentCell.getStringCellValue();
-//                        System.out.print(currentCell.getStringCellValue() + " ");
                     } else if (currentCell.getColumnIndex() == 1){
                         lesson = (int) currentCell.getNumericCellValue();
-//                        System.out.print(currentCell.getNumericCellValue() + " ");
                     } else if (currentCell.getColumnIndex() == 2){
                         day = (int) currentCell.getNumericCellValue();
                     }

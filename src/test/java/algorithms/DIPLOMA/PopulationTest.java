@@ -2,11 +2,9 @@ package algorithms.DIPLOMA;
 
 import algorithms.DIPLOMA.model.Genome;
 import algorithms.DIPLOMA.model.Teacher;
-import algorithms.DIPLOMA.util.Genes;
 import algorithms.DIPLOMA.util.Population;
-import algorithms.DIPLOMA.util.Printer;
+import algorithms.DIPLOMA.util.Printers.DayPrinter;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -103,17 +101,17 @@ public class PopulationTest {
     @Ignore
     @Test
     public void test(){
-        Printer printer = new Printer();
+        DayPrinter dayPrinter = new DayPrinter();
         for (int j = 0; j < TEST_COUNT; j++) {
             for (int i = 1; i <= 5; i++) {
-                printer.printDayOfTheWeek(i);
+                dayPrinter.printDayOfTheWeek(i);
                 go();
             }
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
     }
 
-    public void go() {
+    private void go() {
         Population algorithm = new Population();
         algorithm.initPool(1);
         List<Genome> population = algorithm.init();

@@ -1,22 +1,26 @@
-import algorithms.DIPLOMA.Algorithm;
-import algorithms.DIPLOMA.util.Printer;
-import algorithms.DIPLOMA.util.read_write.XLSParser;
+import algorithms.DIPLOMA.TimetableCreationAlgorithm;
+import algorithms.DIPLOMA.util.Printers.DayPrinter;
+import algorithms.DIPLOMA.util.read_write.impl.XLSParser;
+import algorithms.DIPLOMA.util.read_write.impl.XLSWriter;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Algorithm algorithm = new Algorithm();
-        Printer printer = new Printer();
+        TimetableCreationAlgorithm timetableCreationAlgorithm = new TimetableCreationAlgorithm();
+        DayPrinter dayPrinter = new DayPrinter();
         new XLSParser().parse();
 
         for (int x = 1; x < 6; x++) {
-            printer.printDayOfTheWeek(x);
-            algorithm.init(x);
+            dayPrinter.printDayOfTheWeek(x);
+            timetableCreationAlgorithm.initTeachersPool(x);
 
             for (int i = 0; i < 3; i++) {
-                algorithm.go();
+                timetableCreationAlgorithm.start();
             }
         }
+
+        XLSWriter xlsWriter = new XLSWriter();
+        xlsWriter.write(timetableCreationAlgorithm.getResult());
     }
 }
