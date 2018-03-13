@@ -25,12 +25,13 @@ public class PopulationTest {
 
     @Before
     public void setUp() throws Exception{
-        pop = new Population(Genes.getInitialPool());
+        pop = new Population();
+        pop.initPool(1);
     }
 
     @Test
     public void init() {
-        List<Genome> population = pop.init(1);
+        List<Genome> population = pop.init();
 
         assertTrue(population.size() > 0);
     }
@@ -106,15 +107,16 @@ public class PopulationTest {
         for (int j = 0; j < TEST_COUNT; j++) {
             for (int i = 1; i <= 5; i++) {
                 printer.printDayOfTheWeek(i);
-                go(i);
+                go();
             }
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
     }
 
-    public void go(int dayOfTheWeek) {
-        Population algorithm = new Population(Genes.getInitialPool());
-        List<Genome> population = algorithm.init(dayOfTheWeek);
+    public void go() {
+        Population algorithm = new Population();
+        algorithm.initPool(1);
+        List<Genome> population = algorithm.init();
 
         for (int i = 0; i < MAX_ITER; i++) {
             Collections.sort(population);

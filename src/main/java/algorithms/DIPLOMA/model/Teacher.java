@@ -3,12 +3,12 @@ package algorithms.DIPLOMA.model;
 
 public class Teacher {
 
-    //TODO in case of multithreading THIS id will be a problem cuz non-atomic
-    private static int TEACHERS_AMOUNT = 0;
     private String name;
     private int lesson;
     private int dayOfTheWeek;
     private int teacherId;
+    //TODO in case of multithreading THIS id will be a problem cuz non-atomic
+    private static int TEACHERS_AMOUNT = 0;
 
 
     public Teacher(String name, int lesson, int dayOfTheWeek) {

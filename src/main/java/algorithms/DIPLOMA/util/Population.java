@@ -2,6 +2,7 @@ package algorithms.DIPLOMA.util;
 
 import algorithms.DIPLOMA.model.Genome;
 import algorithms.DIPLOMA.model.Teacher;
+import algorithms.DIPLOMA.util.read_write.XLSParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +99,8 @@ public class Population {
     }
 
     public void initPool(int dayOfTheWeek){
-        this.GENES_POOL = Genes.getInitialPool(dayOfTheWeek);
+        XLSParser xlsParser = new XLSParser();
+        this.GENES_POOL = xlsParser.getTeachersForDay(dayOfTheWeek);
         availableTeachersPerLesson = new int[]{0, 0, 0, 0, 0, 0};
         getAvailableTeachersPerLesson();
     }
