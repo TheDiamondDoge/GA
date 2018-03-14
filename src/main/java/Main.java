@@ -7,9 +7,11 @@ public class Main {
 
     public static void main(String[] args) {
 
+        XLSParser xlsParser = new XLSParser();
+        xlsParser.parse();
+        xlsParser.createLessons();
         TimetableCreationAlgorithm timetableCreationAlgorithm = new TimetableCreationAlgorithm();
         DayPrinter dayPrinter = new DayPrinter();
-        new XLSParser().parse();
 
         for (int x = 1; x < 6; x++) {
             dayPrinter.printDayOfTheWeek(x);

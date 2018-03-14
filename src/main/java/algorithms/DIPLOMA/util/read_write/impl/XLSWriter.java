@@ -15,7 +15,7 @@ import java.util.*;
 
 public class XLSWriter implements Writer {
 
-    private final String FILE_NAME = "C:\\Users\\aiksanov\\IdeaProjects\\GA\\src\\main\\resources\\test.xlsx";
+    private final String FILE_NAME = "C:\\Users\\aiksanov\\IdeaProjects\\GA\\src\\main\\resources\\xlsx\\test.xlsx";
 
     @Override
     public void write(Map<String, ArrayList<Genome>> data) {
@@ -58,7 +58,6 @@ public class XLSWriter implements Writer {
         ArrayList<String> daysOfTheWeek = new ArrayList<>(keys);
 
         Collections.sort(daysOfTheWeek,(String o1, String o2) -> {
-
             Map<String, Integer> intValuesForStrings = new HashMap<>();
 
             intValuesForStrings.put("Monday", 1);
