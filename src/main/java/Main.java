@@ -1,4 +1,5 @@
 import algorithms.DIPLOMA.TimetableCreationAlgorithm;
+import algorithms.DIPLOMA.util.PropertiesExtractor;
 import algorithms.DIPLOMA.util.printers.DayPrinter;
 import algorithms.DIPLOMA.util.read_write.impl.XLSParser;
 import algorithms.DIPLOMA.util.read_write.impl.XLSWriter;
@@ -6,7 +7,7 @@ import algorithms.DIPLOMA.util.read_write.impl.XLSWriter;
 public class Main {
 
     public static void main(String[] args) {
-
+        PropertiesExtractor.setPropertiesFile("app.config");
         XLSParser xlsParser = new XLSParser();
         xlsParser.parse();
         xlsParser.createLessons();

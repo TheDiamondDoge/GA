@@ -23,7 +23,7 @@ public class TimetableCreationAlgorithm {
             result = new HashMap<>();
         }
 
-        List<Genome> population = pop.init();
+        List<Genome> population = pop.createInitialPopulation();
 
         for (int i = 0; i < MAX_ITER; i++) {
             Collections.sort(population);

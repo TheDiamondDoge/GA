@@ -6,11 +6,12 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertiesExtractor {
-    private static final String PROPERTIES_FILE = "app.config";
+    private static String PROPERTIES_FILE;
     private static String INPUT_FILEPATH;
     private static String OUTPUT_FILEPATH;
 
-    static {
+    public static void setPropertiesFile(String propertiesFile) {
+        PROPERTIES_FILE = propertiesFile;
         extractProperties();
     }
 

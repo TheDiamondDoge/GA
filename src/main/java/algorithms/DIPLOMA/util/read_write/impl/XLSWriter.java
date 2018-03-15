@@ -3,7 +3,6 @@ package algorithms.DIPLOMA.util.read_write.impl;
 import algorithms.DIPLOMA.model.Genome;
 import algorithms.DIPLOMA.model.Teacher;
 import algorithms.DIPLOMA.util.PropertiesExtractor;
-import algorithms.DIPLOMA.util.read_write.Writer;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -14,7 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
 
-public class XLSWriter implements Writer {
+public class XLSWriter {
 
     private String FILE_NAME;
 
@@ -22,7 +21,7 @@ public class XLSWriter implements Writer {
         FILE_NAME = PropertiesExtractor.getOutputFilepath();
     }
 
-    @Override
+
     public void write(Map<String, ArrayList<Genome>> data) {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("RESULT");

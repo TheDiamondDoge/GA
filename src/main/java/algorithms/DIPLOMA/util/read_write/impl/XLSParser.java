@@ -2,7 +2,6 @@ package algorithms.DIPLOMA.util.read_write.impl;
 
 import algorithms.DIPLOMA.model.Teacher;
 import algorithms.DIPLOMA.util.PropertiesExtractor;
-import algorithms.DIPLOMA.util.read_write.Parser;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -16,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class XLSParser implements Parser {
+public class XLSParser {
 
     private String FILE_NAME;
     private static List<Teacher> teachers = new ArrayList<>();
@@ -30,7 +29,7 @@ public class XLSParser implements Parser {
         return teachers.stream().filter(teacher -> teacher.getDayOfTheWeek() == dayOfTheWeek).collect(Collectors.toList());
     }
 
-    @Override
+
     public void parse() {
         if (teachers.size() != 0)
             return;

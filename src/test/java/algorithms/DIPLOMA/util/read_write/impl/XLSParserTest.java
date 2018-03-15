@@ -1,19 +1,32 @@
 package algorithms.DIPLOMA.util.read_write.impl;
 
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
 public class XLSParserTest {
 
+    @Before
+    public void setUp(){
+        ClassLoader classLoader = getClass().getClassLoader();
+    }
+
     @Test
     public void getAllLessons() {
         XLSParser xlsParser = new XLSParser();
-        String INPUT = "1,3-5,7-9";
+        String rangeOfLessons = "1,3-5,7-9";
 
-        assertEquals(xlsParser.getAllLessons(INPUT).size(), 7);
+        ArrayList<Integer> lessons = xlsParser.getAllLessons(rangeOfLessons);
+        int expectedAmountOfLessons = 7;
+
+        assertEquals(expectedAmountOfLessons, lessons.size());
     }
 
+    @Ignore
     @Test
     public void parse(){
         XLSParser xlsParser = new XLSParser();

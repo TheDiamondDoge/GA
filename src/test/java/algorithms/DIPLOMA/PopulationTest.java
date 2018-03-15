@@ -29,7 +29,7 @@ public class PopulationTest {
 
     @Test
     public void init() {
-        List<Genome> population = pop.init();
+        List<Genome> population = pop.createInitialPopulation();
 
         assertTrue(population.size() > 0);
     }
@@ -67,9 +67,11 @@ public class PopulationTest {
 
     }
 
-    @Ignore
+
     @Test
     public void mutate() {
+
+
         ArrayList<Teacher> teachers = new ArrayList<>();
         teachers.add(new Teacher("Ruslan", 1, 1));
         teachers.add(new Teacher("Ruslan", 1, 1));
@@ -115,7 +117,7 @@ public class PopulationTest {
     private void go() {
         Population algorithm = new Population();
         algorithm.initPool(1);
-        List<Genome> population = algorithm.init();
+        List<Genome> population = algorithm.createInitialPopulation();
 
         for (int i = 0; i < MAX_ITER; i++) {
             Collections.sort(population);

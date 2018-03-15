@@ -10,17 +10,30 @@ import java.util.List;
 public class Population {
 
     private static final int POPULATION_SIZE = 10;
-    private static List<Teacher> GENES_POOL;
-    private static int[] availableTeachersPerLesson;
     private static final double ELITE_RATE = 0.1;
     private static final double SURVIVE_RATE = 0.5;
     private static final double MUTATION_RATE = 0.2;
-    private static int TARGET_SIZE = 5;
+    private List<Teacher> GENES_POOL;
+    private int[] availableTeachersPerLesson;
+    private int TARGET_SIZE = 10;
 
     public Population() {
     }
 
-    public List init() {
+    public void initPool(int dayOfTheWeek){
+        XLSParser xlsParser = new XLSParser();
+        GENES_POOL = xlsParser.getTeachersForDay(dayOfTheWeek);
+        availableTeachersPerLesson = new int[10];
+        getAvailableTeachersPerLesson();
+    }
+
+    private void getAvailableTeachersPerLesson(){
+        for (Teacher teacher : GENES_POOL){
+            availableTeachersPerLesson[teacher.getLesson()]++;
+        }
+    }
+
+    public List createInitialPopulation() {
         TARGET_SIZE = calcTargetSize();
         List<Genome> population = new ArrayList<>();
 
@@ -58,8 +71,8 @@ public class Population {
     private Teacher getRandomTeacher(){
         return GENES_POOL.get((int) (Math.random() * GENES_POOL.size() - 1));
     }
-
     //mate
+
     public List<Genome> mergeRandomGenomes(List<Genome> population) {
         int eliteSize = (int) (POPULATION_SIZE * ELITE_RATE);
         List<Genome> children = selectElite(population, eliteSize);
@@ -97,19 +110,6 @@ public class Population {
         }
 
         return new Genome(teachers);
-    }
-
-    public void initPool(int dayOfTheWeek){
-        XLSParser xlsParser = new XLSParser();
-        GENES_POOL = xlsParser.getTeachersForDay(dayOfTheWeek);
-        availableTeachersPerLesson = new int[]{0, 0, 0, 0, 0, 0};
-        getAvailableTeachersPerLesson();
-    }
-
-    private void getAvailableTeachersPerLesson(){
-        for (Teacher teacher : GENES_POOL){
-            availableTeachersPerLesson[teacher.getLesson()]++;
-        }
     }
 
     public void deleteGenesFromPool(Genome genome){
