@@ -28,7 +28,7 @@ public class Population {
             ArrayList<Teacher> teachers = new ArrayList<>();
 
             for (int j = 0; j < TARGET_SIZE; j++) {
-                teachers.add(randomTeacher());
+                teachers.add(getRandomTeacher());
             }
             population.add(new Genome(teachers));
         }
@@ -44,9 +44,9 @@ public class Population {
         return availableTeachersPerLesson.length - 1;
     }
 
-    public Genome mutate(Genome genome) {
+    public Genome mutateGenome(Genome genome) {
         int ipos = (int) (Math.random() * TARGET_SIZE);
-        Teacher delta = randomTeacher();
+        Teacher delta = getRandomTeacher();
 
         ArrayList<Teacher> teachers = genome.getDay();
         teachers.set(ipos, delta);
@@ -55,43 +55,44 @@ public class Population {
         return new Genome(teachers);
     }
 
-    private Teacher randomTeacher(){
+    private Teacher getRandomTeacher(){
         return GENES_POOL.get((int) (Math.random() * GENES_POOL.size() - 1));
     }
 
-    public List<Genome> mate(List<Genome> population) {
-        int esize = (int) (POPULATION_SIZE * ELITE_RATE);
-        List<Genome> children = selectElite(population, esize);
+    //mate
+    public List<Genome> mergeRandomGenomes(List<Genome> population) {
+        int eliteSize = (int) (POPULATION_SIZE * ELITE_RATE);
+        List<Genome> children = selectElite(population, eliteSize);
 
-        for (int i = esize; i < POPULATION_SIZE; i++) {
-            int i1 = (int) (Math.random() * POPULATION_SIZE * SURVIVE_RATE);
-            int i2 = (int) (Math.random() * POPULATION_SIZE * SURVIVE_RATE);
-            int spos = (int) (Math.random() * TARGET_SIZE);
+        for (int i = eliteSize; i < POPULATION_SIZE; i++) {
+            int firstRandomGenome = (int) (Math.random() * POPULATION_SIZE * SURVIVE_RATE);
+            int secondRandomGenome = (int) (Math.random() * POPULATION_SIZE * SURVIVE_RATE);
+            int pointOfMerge = (int) (Math.random() * TARGET_SIZE);
 
-            Genome genome = arrayModify(population.get(i1), population.get(i2), spos);
+            Genome genome = mergeNewGenome(population.get(firstRandomGenome), population.get(secondRandomGenome), pointOfMerge);
 
             if (Math.random() < MUTATION_RATE) {
-                genome = mutate(genome);
+                genome = mutateGenome(genome);
             }
             children.add(genome);
         }
         return children;
     }
 
-    public List<Genome> selectElite(List<Genome> population, int esize) {
+    public List<Genome> selectElite(List<Genome> population, int eliteSize) {
         List<Genome> children = new ArrayList<>();
 
-        for (int i = 0; i < esize; i++) {
+        for (int i = 0; i < eliteSize; i++) {
             children.add(new Genome(population.get(i)));
         }
 
         return children;
     }
 
-    private Genome arrayModify(Genome g1, Genome g2, int spos) {
+    private Genome mergeNewGenome(Genome g1, Genome g2, int pointOfMerge) {
         ArrayList<Teacher> teachers = g1.getDay();
 
-        for (int i = spos; i < teachers.size(); i++) {
+        for (int i = pointOfMerge; i < teachers.size(); i++) {
             teachers.set(i, g2.getDay().get(i));
         }
 
@@ -100,16 +101,15 @@ public class Population {
 
     public void initPool(int dayOfTheWeek){
         XLSParser xlsParser = new XLSParser();
-        this.GENES_POOL = xlsParser.getTeachersForDay(dayOfTheWeek);
+        GENES_POOL = xlsParser.getTeachersForDay(dayOfTheWeek);
         availableTeachersPerLesson = new int[]{0, 0, 0, 0, 0, 0};
         getAvailableTeachersPerLesson();
     }
 
-    private int[] getAvailableTeachersPerLesson(){
+    private void getAvailableTeachersPerLesson(){
         for (Teacher teacher : GENES_POOL){
             availableTeachersPerLesson[teacher.getLesson()]++;
         }
-        return availableTeachersPerLesson;
     }
 
     public void deleteGenesFromPool(Genome genome){

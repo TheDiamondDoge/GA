@@ -1,4 +1,4 @@
-package algorithms.DIPLOMA.util.Printers;
+package algorithms.DIPLOMA.util.printers;
 
 public class DayPrinter {
 

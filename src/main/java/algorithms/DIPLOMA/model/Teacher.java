@@ -18,6 +18,15 @@ public class Teacher {
         this.dayOfTheWeek = dayOfTheWeek;
     }
 
+    private int getCurrentTeachersAmount(){
+        increaseTeachersAmount();
+        return TEACHERS_AMOUNT;
+    }
+
+    private void increaseTeachersAmount(){
+        TEACHERS_AMOUNT += 1;
+    }
+
     public String getName() {
         return name;
     }
@@ -32,15 +41,6 @@ public class Teacher {
 
     public int getTeacherId() {
         return teacherId;
-    }
-
-    private int getCurrentTeachersAmount(){
-        increaseTeachersAmount();
-        return TEACHERS_AMOUNT;
-    }
-
-    private void increaseTeachersAmount(){
-        TEACHERS_AMOUNT += 1;
     }
 
     @Override

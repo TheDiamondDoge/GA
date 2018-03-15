@@ -2,7 +2,7 @@ package algorithms.DIPLOMA;
 
 import algorithms.DIPLOMA.model.Genome;
 import algorithms.DIPLOMA.util.Population;
-import algorithms.DIPLOMA.util.Printers.DayPrinter;
+import algorithms.DIPLOMA.util.printers.DayPrinter;
 
 import java.util.*;
 
@@ -38,7 +38,7 @@ public class TimetableCreationAlgorithm {
                 break;
             }
 
-            population = pop.mate(population);
+            population = pop.mergeRandomGenomes(population);
         }
     }
 

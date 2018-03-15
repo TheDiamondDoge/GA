@@ -1,6 +1,7 @@
 package algorithms.DIPLOMA.util.read_write.impl;
 
 import algorithms.DIPLOMA.model.Teacher;
+import algorithms.DIPLOMA.util.PropertiesExtractor;
 import algorithms.DIPLOMA.util.read_write.Parser;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -17,10 +18,13 @@ import java.util.stream.Collectors;
 
 public class XLSParser implements Parser {
 
-    private final String FILE_NAME = "C:\\Users\\aiksanov\\IdeaProjects\\GA\\src\\main\\resources\\xlsx\\init.xlsx";
+    private String FILE_NAME;
     private static List<Teacher> teachers = new ArrayList<>();
     private static ArrayList<String> parsedXLSFile = new ArrayList<>();
 
+    public XLSParser() {
+        FILE_NAME = PropertiesExtractor.getInputFilepath();
+    }
 
     public List<Teacher> getTeachersForDay(int dayOfTheWeek){
         return teachers.stream().filter(teacher -> teacher.getDayOfTheWeek() == dayOfTheWeek).collect(Collectors.toList());
@@ -47,15 +51,14 @@ public class XLSParser implements Parser {
                     Cell currentCell = cellIterator.next();
 
                     if((currentCell.getColumnIndex() == 0) || (currentCell.getColumnIndex() == 1)){
-                        stringBuilder.append(new DataFormatter().formatCellValue(currentCell) + ";");
+                        stringBuilder.append(new DataFormatter().formatCellValue(currentCell)).append(";");
                     } else if (currentCell.getColumnIndex() == 2){
-                        stringBuilder.append(new DataFormatter().formatCellValue(currentCell) + ";");
+                        stringBuilder.append(new DataFormatter().formatCellValue(currentCell)).append(";");
                     }
                 }
 
                 parsedXLSFile.add(stringBuilder.toString());
             }
-
         } catch (FileNotFoundException e){
             e.printStackTrace();
         } catch (IOException e){
@@ -66,11 +69,11 @@ public class XLSParser implements Parser {
     public void createLessons(){
         ArrayList<Integer> lessons;
         for (String str : parsedXLSFile){
-            String[] objectFields = str.split(";");
-            lessons = getAllLessons(objectFields[1]);
+            String[] fieldsOfObject = str.split(";");
+            lessons = getAllLessons(fieldsOfObject[1]);
 
             for (int i : lessons){
-                teachers.add(new Teacher(objectFields[0], i, Character.getNumericValue(objectFields[2].charAt(0))));
+                teachers.add(new Teacher(fieldsOfObject[0], i, Character.getNumericValue(fieldsOfObject[2].charAt(0))));
             }
         }
     }

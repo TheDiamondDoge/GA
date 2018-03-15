@@ -1,5 +1,5 @@
 import algorithms.DIPLOMA.TimetableCreationAlgorithm;
-import algorithms.DIPLOMA.util.Printers.DayPrinter;
+import algorithms.DIPLOMA.util.printers.DayPrinter;
 import algorithms.DIPLOMA.util.read_write.impl.XLSParser;
 import algorithms.DIPLOMA.util.read_write.impl.XLSWriter;
 

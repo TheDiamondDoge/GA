@@ -2,6 +2,7 @@ package algorithms.DIPLOMA.util.read_write.impl;
 
 import algorithms.DIPLOMA.model.Genome;
 import algorithms.DIPLOMA.model.Teacher;
+import algorithms.DIPLOMA.util.PropertiesExtractor;
 import algorithms.DIPLOMA.util.read_write.Writer;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -15,7 +16,11 @@ import java.util.*;
 
 public class XLSWriter implements Writer {
 
-    private final String FILE_NAME = "C:\\Users\\aiksanov\\IdeaProjects\\GA\\src\\main\\resources\\xlsx\\test.xlsx";
+    private String FILE_NAME;
+
+    public XLSWriter() {
+        FILE_NAME = PropertiesExtractor.getOutputFilepath();
+    }
 
     @Override
     public void write(Map<String, ArrayList<Genome>> data) {

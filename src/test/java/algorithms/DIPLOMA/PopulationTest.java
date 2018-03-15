@@ -3,7 +3,7 @@ package algorithms.DIPLOMA;
 import algorithms.DIPLOMA.model.Genome;
 import algorithms.DIPLOMA.model.Teacher;
 import algorithms.DIPLOMA.util.Population;
-import algorithms.DIPLOMA.util.Printers.DayPrinter;
+import algorithms.DIPLOMA.util.printers.DayPrinter;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -78,7 +78,7 @@ public class PopulationTest {
         teachers.add(new Teacher("Ruslan", 1, 1));
 
         Genome initGenome = new Genome(teachers);
-        Genome mutatedGenome = pop.mutate(initGenome);
+        Genome mutatedGenome = pop.mutateGenome(initGenome);
 
         String mutatedName = "";
         for (Teacher t : mutatedGenome.getDay()){
@@ -133,7 +133,7 @@ public class PopulationTest {
                 break;
             }
 
-            population = algorithm.mate(population);
+            population = algorithm.mergeRandomGenomes(population);
 
         }
     }
