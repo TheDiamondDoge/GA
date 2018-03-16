@@ -14,7 +14,7 @@ public class Population {
     private static final double SURVIVE_RATE = 0.5;
     private static final double MUTATION_RATE = 0.2;
     private List<Teacher> GENES_POOL;
-    private int[] availableTeachersPerLesson;
+    private int[] availableTeachersPerLesson = new int[10];
     private int TARGET_SIZE = 10;
 
     public Population() {
@@ -23,11 +23,10 @@ public class Population {
     public void initPool(int dayOfTheWeek){
         XLSParser xlsParser = new XLSParser();
         GENES_POOL = xlsParser.getTeachersForDay(dayOfTheWeek);
-        availableTeachersPerLesson = new int[10];
-        getAvailableTeachersPerLesson();
+        setAmountAvailableTeachersPerLesson();
     }
 
-    private void getAvailableTeachersPerLesson(){
+    private void setAmountAvailableTeachersPerLesson(){
         for (Teacher teacher : GENES_POOL){
             availableTeachersPerLesson[teacher.getLesson()]++;
         }
@@ -49,20 +48,27 @@ public class Population {
     }
 
     private int calcTargetSize(){
-        for (int i = 1; i < availableTeachersPerLesson.length; i++){
-            if(availableTeachersPerLesson[i] == 0){
-                return i - 1;
+        for (int lessonNum = 1; lessonNum < availableTeachersPerLesson.length; lessonNum++){
+            if(isThereAnyAvailableTeacher(lessonNum)){
+                return lessonNum - 1;
             }
         }
         return availableTeachersPerLesson.length - 1;
     }
 
+    private boolean isThereAnyAvailableTeacher(int lessonNum){
+        if (availableTeachersPerLesson[lessonNum] == 0)
+            return true;
+        else
+            return false;
+    }
+
     public Genome mutateGenome(Genome genome) {
-        int ipos = (int) (Math.random() * TARGET_SIZE);
+        int extractionPosition = (int) (Math.random() * TARGET_SIZE);
         Teacher delta = getRandomTeacher();
 
         ArrayList<Teacher> teachers = genome.getDay();
-        teachers.set(ipos, delta);
+        teachers.set(extractionPosition, delta);
         genome.calcFitness();
 
         return new Genome(teachers);
@@ -71,8 +77,8 @@ public class Population {
     private Teacher getRandomTeacher(){
         return GENES_POOL.get((int) (Math.random() * GENES_POOL.size() - 1));
     }
-    //mate
 
+    //mate
     public List<Genome> mergeRandomGenomes(List<Genome> population) {
         int eliteSize = (int) (POPULATION_SIZE * ELITE_RATE);
         List<Genome> children = selectElite(population, eliteSize);
@@ -82,7 +88,8 @@ public class Population {
             int secondRandomGenome = (int) (Math.random() * POPULATION_SIZE * SURVIVE_RATE);
             int pointOfMerge = (int) (Math.random() * TARGET_SIZE);
 
-            Genome genome = mergeNewGenome(population.get(firstRandomGenome), population.get(secondRandomGenome), pointOfMerge);
+            Genome genome = mergeNewGenome(population.get(firstRandomGenome),
+                    population.get(secondRandomGenome), pointOfMerge);
 
             if (Math.random() < MUTATION_RATE) {
                 genome = mutateGenome(genome);

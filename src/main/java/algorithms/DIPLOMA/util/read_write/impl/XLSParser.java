@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class XLSParser {
 
     private String FILE_NAME;
-    private static List<Teacher> teachers = new ArrayList<>();
+    private static List<Teacher> teachers;
     private static ArrayList<String> parsedXLSFile = new ArrayList<>();
 
     public XLSParser() {
@@ -30,9 +30,8 @@ public class XLSParser {
     }
 
 
-    public void parse() {
-        if (teachers.size() != 0)
-            return;
+    public ArrayList<Teacher> parse() {
+        ArrayList<Teacher> parsedXLSStrings = new ArrayList<>();
 
         try {
             FileInputStream excelFile = new FileInputStream(new File(FILE_NAME));
@@ -63,6 +62,8 @@ public class XLSParser {
         } catch (IOException e){
             e.printStackTrace();
         }
+
+        return  parsedXLSStrings;
     }
 
     public void createLessons(){
