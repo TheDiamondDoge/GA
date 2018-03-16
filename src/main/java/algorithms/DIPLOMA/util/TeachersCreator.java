@@ -52,4 +52,8 @@ public class TeachersCreator {
     public static List<Teacher> getTeachersForDay(int dayOfTheWeek){
         return teachers.stream().filter(teacher -> teacher.getDayOfTheWeek() == dayOfTheWeek).collect(Collectors.toList());
     }
+
+    public static List<Teacher> getTeachers() {
+        return teachers;
+    }
 }

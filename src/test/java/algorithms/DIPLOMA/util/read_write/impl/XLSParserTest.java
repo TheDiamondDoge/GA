@@ -21,9 +21,12 @@ public class XLSParserTest {
         xlsParser = new XLSParser(inputFile);
     }
 
-    @Ignore
     @Test
     public void parse(){
-        xlsParser.parse();
+        ArrayList<String> parseResult;
+        parseResult = xlsParser.parse();
+
+        int expectedAmountOfStrings = 6;
+        assertEquals(expectedAmountOfStrings, parseResult.size());
     }
 }

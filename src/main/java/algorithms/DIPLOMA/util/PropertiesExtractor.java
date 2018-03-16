@@ -1,16 +1,17 @@
 package algorithms.DIPLOMA.util;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertiesExtractor {
-    private static String PROPERTIES_FILE;
+    private static File PROPERTIES_FILE;
     private static String INPUT_FILEPATH;
     private static String OUTPUT_FILEPATH;
 
-    public static void setPropertiesFile(String propertiesFile) {
+    public static void setPropertiesFile(File propertiesFile) {
         PROPERTIES_FILE = propertiesFile;
         extractProperties();
     }
