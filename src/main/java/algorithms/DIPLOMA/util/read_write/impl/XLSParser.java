@@ -18,20 +18,15 @@ import java.util.stream.Collectors;
 public class XLSParser {
 
     private String FILE_NAME;
-    private static List<Teacher> teachers;
-    private static ArrayList<String> parsedXLSFile = new ArrayList<>();
+//    private static List<Teacher> teachers;
+//    private static ArrayList<String> parsedXLSFile = new ArrayList<>();
 
     public XLSParser() {
         FILE_NAME = PropertiesExtractor.getInputFilepath();
     }
 
-    public List<Teacher> getTeachersForDay(int dayOfTheWeek){
-        return teachers.stream().filter(teacher -> teacher.getDayOfTheWeek() == dayOfTheWeek).collect(Collectors.toList());
-    }
-
-
-    public ArrayList<Teacher> parse() {
-        ArrayList<Teacher> parsedXLSStrings = new ArrayList<>();
+    public ArrayList<String> parse() {
+        ArrayList<String> parsedXLSStrings = new ArrayList<>();
 
         try {
             FileInputStream excelFile = new FileInputStream(new File(FILE_NAME));
@@ -55,7 +50,8 @@ public class XLSParser {
                     }
                 }
 
-                parsedXLSFile.add(stringBuilder.toString());
+                //parsedXLSFile.add(stringBuilder.toString());
+                parsedXLSStrings.add(stringBuilder.toString());
             }
         } catch (FileNotFoundException e){
             e.printStackTrace();
@@ -63,36 +59,8 @@ public class XLSParser {
             e.printStackTrace();
         }
 
-        return  parsedXLSStrings;
+        return parsedXLSStrings;
     }
 
-    public void createLessons(){
-        ArrayList<Integer> lessons;
-        for (String str : parsedXLSFile){
-            String[] fieldsOfObject = str.split(";");
-            lessons = getAllLessons(fieldsOfObject[1]);
 
-            for (int i : lessons){
-                teachers.add(new Teacher(fieldsOfObject[0], i, Character.getNumericValue(fieldsOfObject[2].charAt(0))));
-            }
-        }
-    }
-
-    protected ArrayList<Integer> getAllLessons(String rangeOfLessons){
-        String[] lessons = rangeOfLessons.split(",");
-        ArrayList<Integer> result = new ArrayList<>();
-
-        for (String str : lessons){
-            if (str.contains("-")){
-                for (int i = Character.getNumericValue(str.charAt(0));
-                     i <= Character.getNumericValue(str.charAt(2)); i++)
-                {
-                    result.add(i);
-                }
-            } else {
-                result.add(Character.getNumericValue(str.charAt(0)));
-            }
-        }
-        return result;
-    }
 }

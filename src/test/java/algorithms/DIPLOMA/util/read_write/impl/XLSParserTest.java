@@ -1,5 +1,6 @@
 package algorithms.DIPLOMA.util.read_write.impl;
 
+import algorithms.DIPLOMA.util.TeachersCreator;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -20,7 +21,7 @@ public class XLSParserTest {
         XLSParser xlsParser = new XLSParser();
         String rangeOfLessons = "1,3-5,7-9";
 
-        ArrayList<Integer> lessons = xlsParser.getAllLessons(rangeOfLessons);
+        ArrayList<Integer> lessons = new TeachersCreator().getAllLessons(rangeOfLessons);
         int expectedAmountOfLessons = 7;
 
         assertEquals(expectedAmountOfLessons, lessons.size());

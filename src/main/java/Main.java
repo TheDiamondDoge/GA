@@ -1,16 +1,21 @@
 import algorithms.DIPLOMA.TimetableCreationAlgorithm;
 import algorithms.DIPLOMA.util.PropertiesExtractor;
+import algorithms.DIPLOMA.util.TeachersCreator;
 import algorithms.DIPLOMA.util.printers.DayPrinter;
 import algorithms.DIPLOMA.util.read_write.impl.XLSParser;
 import algorithms.DIPLOMA.util.read_write.impl.XLSWriter;
+
+import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
         PropertiesExtractor.setPropertiesFile("app.config");
+
         XLSParser xlsParser = new XLSParser();
-        xlsParser.parse();
-        xlsParser.createLessons();
+        ArrayList<String> parsedXLSStrings = xlsParser.parse();
+        TeachersCreator teachersCreator = new TeachersCreator(parsedXLSStrings);
+        teachersCreator.createTeachers();
         TimetableCreationAlgorithm timetableCreationAlgorithm = new TimetableCreationAlgorithm();
         DayPrinter dayPrinter = new DayPrinter();
 
