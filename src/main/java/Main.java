@@ -5,17 +5,21 @@ import algorithms.DIPLOMA.util.printers.DayPrinter;
 import algorithms.DIPLOMA.util.read_write.impl.XLSParser;
 import algorithms.DIPLOMA.util.read_write.impl.XLSWriter;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
         PropertiesExtractor.setPropertiesFile("app.config");
+        File inputFile = new File(PropertiesExtractor.getInputFilepath());
+        File outputFile = new File(PropertiesExtractor.getOutputFilepath());
 
-        XLSParser xlsParser = new XLSParser();
+        XLSParser xlsParser = new XLSParser(inputFile);
         ArrayList<String> parsedXLSStrings = xlsParser.parse();
         TeachersCreator teachersCreator = new TeachersCreator(parsedXLSStrings);
         teachersCreator.createTeachers();
+
         TimetableCreationAlgorithm timetableCreationAlgorithm = new TimetableCreationAlgorithm();
         DayPrinter dayPrinter = new DayPrinter();
 
@@ -28,7 +32,7 @@ public class Main {
             }
         }
 
-        XLSWriter xlsWriter = new XLSWriter();
+        XLSWriter xlsWriter = new XLSWriter(outputFile);
         xlsWriter.write(timetableCreationAlgorithm.getResult());
     }
 }

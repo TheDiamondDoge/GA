@@ -1,7 +1,5 @@
 package algorithms.DIPLOMA.util.read_write.impl;
 
-import algorithms.DIPLOMA.model.Teacher;
-import algorithms.DIPLOMA.util.PropertiesExtractor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -11,25 +9,20 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class XLSParser {
+    private File inputFile;
 
-    private String FILE_NAME;
-//    private static List<Teacher> teachers;
-//    private static ArrayList<String> parsedXLSFile = new ArrayList<>();
-
-    public XLSParser() {
-        FILE_NAME = PropertiesExtractor.getInputFilepath();
+    public XLSParser(File inputFile) {
+        this.inputFile = inputFile;
     }
 
     public ArrayList<String> parse() {
         ArrayList<String> parsedXLSStrings = new ArrayList<>();
 
         try {
-            FileInputStream excelFile = new FileInputStream(new File(FILE_NAME));
+            FileInputStream excelFile = new FileInputStream(inputFile);
             Workbook workbook = new XSSFWorkbook(excelFile);
             Sheet dataSheet = workbook.getSheetAt(0);
             Iterator<Row> iterator = dataSheet.iterator();
@@ -50,7 +43,6 @@ public class XLSParser {
                     }
                 }
 
-                //parsedXLSFile.add(stringBuilder.toString());
                 parsedXLSStrings.add(stringBuilder.toString());
             }
         } catch (FileNotFoundException e){

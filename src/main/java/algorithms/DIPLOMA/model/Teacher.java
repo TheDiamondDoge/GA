@@ -12,13 +12,13 @@ public class Teacher {
 
 
     public Teacher(String name, int lesson, int dayOfTheWeek) {
-        teacherId = getCurrentTeachersAmount();
+        teacherId = generateTeacherId();
         this.name = name;
         this.lesson = lesson;
         this.dayOfTheWeek = dayOfTheWeek;
     }
 
-    private int getCurrentTeachersAmount(){
+    private int generateTeacherId(){
         increaseTeachersAmount();
         return TEACHERS_AMOUNT;
     }

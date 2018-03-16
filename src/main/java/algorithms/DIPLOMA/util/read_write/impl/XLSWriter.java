@@ -1,13 +1,11 @@
 package algorithms.DIPLOMA.util.read_write.impl;
 
-import algorithms.DIPLOMA.model.Genome;
-import algorithms.DIPLOMA.model.Teacher;
+import algorithms.DIPLOMA.model.*;
 import algorithms.DIPLOMA.util.PropertiesExtractor;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.*;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,12 +13,11 @@ import java.util.*;
 
 public class XLSWriter {
 
-    private String FILE_NAME;
+    private File outputXLS;
 
-    public XLSWriter() {
-        FILE_NAME = PropertiesExtractor.getOutputFilepath();
+    public XLSWriter(File outputXLS) {
+        this.outputXLS = outputXLS;
     }
-
 
     public void write(Map<String, ArrayList<Genome>> data) {
         XSSFWorkbook workbook = new XSSFWorkbook();
@@ -48,7 +45,7 @@ public class XLSWriter {
         }
 
         try{
-            FileOutputStream outputStream = new FileOutputStream(FILE_NAME);
+            FileOutputStream outputStream = new FileOutputStream(outputXLS);
             workbook.write(outputStream);
             workbook.close();
         } catch (FileNotFoundException e){
@@ -75,7 +72,7 @@ public class XLSWriter {
             int i1 = intValuesForStrings.get(o1);
             int i2 = intValuesForStrings.get(o2);
 
-            return (i1 < i2 ? -1 : (i1 == i2 ? 0 : 1));
+            return Integer.compare(i1, i2);
         });
 
         return daysOfTheWeek;

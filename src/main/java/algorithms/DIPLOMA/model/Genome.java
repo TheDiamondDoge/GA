@@ -3,7 +3,6 @@ package algorithms.DIPLOMA.model;
 import java.util.ArrayList;
 
 public class Genome implements Comparable<Genome>{
-
     private ArrayList<Teacher> day;
     private int fitness;
 

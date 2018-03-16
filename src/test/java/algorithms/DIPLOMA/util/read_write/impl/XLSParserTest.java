@@ -5,32 +5,25 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
 public class XLSParserTest {
+    private File inputFile;
+    private XLSParser xlsParser;
 
     @Before
     public void setUp(){
         ClassLoader classLoader = getClass().getClassLoader();
-    }
-
-    @Test
-    public void getAllLessons() {
-        XLSParser xlsParser = new XLSParser();
-        String rangeOfLessons = "1,3-5,7-9";
-
-        ArrayList<Integer> lessons = new TeachersCreator().getAllLessons(rangeOfLessons);
-        int expectedAmountOfLessons = 7;
-
-        assertEquals(expectedAmountOfLessons, lessons.size());
+        inputFile = new File(classLoader.getResource("read_write/xlsx/inputFile.xlsx").getFile());
+        xlsParser = new XLSParser(inputFile);
     }
 
     @Ignore
     @Test
     public void parse(){
-        XLSParser xlsParser = new XLSParser();
         xlsParser.parse();
     }
 }
