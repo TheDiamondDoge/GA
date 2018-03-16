@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Population {
-
     private static final int POPULATION_SIZE = 10;
     private static final double ELITE_RATE = 0.1;
     private static final double SURVIVE_RATE = 0.5;

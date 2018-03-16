@@ -3,6 +3,7 @@ package algorithms.DIPLOMA;
 import algorithms.DIPLOMA.model.Genome;
 import algorithms.DIPLOMA.model.Teacher;
 import algorithms.DIPLOMA.util.Population;
+import algorithms.DIPLOMA.util.TeachersCreator;
 import algorithms.DIPLOMA.util.printers.DayPrinter;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -15,23 +16,24 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class PopulationTest {
-
-    private final static int MAX_ITER = 1000;
-    private final int TEST_COUNT = 50;
     private Population pop;
-
 
     @Before
     public void setUp(){
+        createPool();
         pop = new Population();
         pop.initPool(1);
+
     }
 
-    @Test
-    public void init() {
-        List<Genome> population = pop.createInitialPopulation();
+    private void createPool(){
+        ArrayList<String> xlsStrings = new ArrayList<>();
+        xlsStrings.add("Russian1;1;1");
+        xlsStrings.add("Russian2;2-3;2");
+        xlsStrings.add("Russian3;4,6;3");
+        xlsStrings.add("Russian4;7;4");
 
-        assertTrue(population.size() > 0);
+        new TeachersCreator(xlsStrings).createTeachers();
     }
 
     @Test
@@ -67,11 +69,8 @@ public class PopulationTest {
 
     }
 
-
     @Test
     public void mutate() {
-
-
         ArrayList<Teacher> teachers = new ArrayList<>();
         teachers.add(new Teacher("Ruslan", 1, 1));
         teachers.add(new Teacher("Ruslan", 1, 1));
@@ -89,54 +88,6 @@ public class PopulationTest {
                 break;
             }
         }
-
         assertNotEquals(mutatedName, "Ruslan");
-    }
-
-    @Test
-    public void mate() {
-        ArrayList<Genome> population = new ArrayList<>();
-
-
-
-    }
-
-    @Ignore
-    @Test
-    public void test(){
-        DayPrinter dayPrinter = new DayPrinter();
-        for (int j = 0; j < TEST_COUNT; j++) {
-            for (int i = 1; i <= 5; i++) {
-                dayPrinter.printDayOfTheWeek(i);
-                go();
-            }
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        }
-    }
-
-    private void go() {
-        Population algorithm = new Population();
-        algorithm.initPool(1);
-        List<Genome> population = algorithm.createInitialPopulation();
-
-        for (int i = 0; i < MAX_ITER; i++) {
-            Collections.sort(population);
-
-            if (population.get(0).getFitness() == 0) {
-                ArrayList<Teacher> teachers = population.get(0).getDay();
-
-                for(int j = 0; j < teachers.size(); j++){
-                    System.out.print(i + " > ");
-                    System.out.print(teachers.get(j).getName() + "-" + teachers.get(j).getLesson() + "; ");
-                    assertEquals(j+1, teachers.get(j).getLesson());
-                }
-
-                System.out.println();
-                break;
-            }
-
-            population = algorithm.mergeRandomGenomes(population);
-
-        }
     }
 }
