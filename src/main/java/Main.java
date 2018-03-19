@@ -1,4 +1,5 @@
 import algorithms.DIPLOMA.TimetableCreationAlgorithm;
+import algorithms.DIPLOMA.data.GradeDataObject;
 import algorithms.DIPLOMA.util.PropertiesExtractor;
 import algorithms.DIPLOMA.util.TeachersCreator;
 import algorithms.DIPLOMA.util.printers.DayPrinter;
@@ -26,6 +27,7 @@ public class Main {
         for (int x = 1; x < 6; x++) {
             dayPrinter.printDayOfTheWeek(x);
             timetableCreationAlgorithm.initTeachersPool(x);
+            GradeDataObject.grade = 1;
 
             for (int i = 0; i < 3; i++) {
                 timetableCreationAlgorithm.start();

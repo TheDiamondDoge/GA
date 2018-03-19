@@ -26,6 +26,7 @@ public class XLSParser {
             Workbook workbook = new XSSFWorkbook(excelFile);
             Sheet dataSheet = workbook.getSheetAt(0);
             Iterator<Row> iterator = dataSheet.iterator();
+            iterator.next();
 
             while (iterator.hasNext()){
                 StringBuilder stringBuilder = new StringBuilder();
