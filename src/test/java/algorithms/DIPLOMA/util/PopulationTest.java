@@ -3,6 +3,8 @@ package algorithms.DIPLOMA.util;
 import algorithms.DIPLOMA.model.Genome;
 import algorithms.DIPLOMA.model.Teacher;
 import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -11,47 +13,50 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class PopulationTest {
-    private Population population;
-    private List<Genome> initialPopulation;
+    private static Population population;
+    private static List<Genome> initialPopulation;
 
-    @Before
-    public void setUp(){
+    @BeforeClass
+    public static void setUp(){
         createPool();
         population = new Population();
         population.initPool(1);
     }
 
-    private void createPool(){
+    private static void createPool(){
         ArrayList<String> xlsStrings = new ArrayList<>();
-        xlsStrings.add("Russian1;1;1");
-        xlsStrings.add("Russian2;2-3;1");
-        xlsStrings.add("Russian3;4,6;1");
-        xlsStrings.add("Russian4;7;1");
+        xlsStrings.add("Russian1;1;1;1");
+        xlsStrings.add("Russian2;2-3;1;1");
+        xlsStrings.add("Russian3;4,6;1;1");
+        xlsStrings.add("Russian4;7;1;1");
 
         new TeachersCreator(xlsStrings).createTeachers();
     }
-
 
     @Test
     public void createInitialPopulation() {
         initialPopulation = population.createInitialPopulation();
 
-        int expectedSizeOfPopulation = 10;
+        int expectedSizeOfPopulation = 100;
         assertEquals(expectedSizeOfPopulation, initialPopulation.size());
     }
 
     @Test
     public void mutateGenome() {
         ArrayList<Teacher> teachers = new ArrayList<>();
-        Genome genome;
 
-        teachers.add(new Teacher("Russian", 1, 1));
-        teachers.add(new Teacher("Russian", 1, 1));
-        teachers.add(new Teacher("Russian", 1, 1));
-        teachers.add(new Teacher("Russian", 1, 1));
-        teachers.add(new Teacher("Russian", 1, 1));
+        teachers.add(new Teacher("Russian", 1, 1, 1));
+        teachers.add(new Teacher("Russian", 1, 1, 1));
+        teachers.add(new Teacher("Russian", 1, 1, 1));
+        teachers.add(new Teacher("Russian", 1, 1, 1));
+        teachers.add(new Teacher("Russian", 1, 1, 1));
+        teachers.add(new Teacher("Russian", 1, 1, 1));
+        teachers.add(new Teacher("Russian", 1, 1, 1));
+        teachers.add(new Teacher("Russian", 1, 1, 1));
+        teachers.add(new Teacher("Russian", 1, 1, 1));
+        teachers.add(new Teacher("Russian", 1, 1, 1));
 
-        genome = new Genome(teachers);
+        Genome genome = new Genome(teachers);
         Genome mutatedGenome = population.mutateGenome(genome);
         String mutatedTeachersName = "";
 
@@ -66,28 +71,26 @@ public class PopulationTest {
     }
 
     @Test
-    public void mergeRandomGenomes() {
-
-    }
-
-    @Test
     public void selectElite() {
         List<Genome> elitePopulation = population.selectElite(initialPopulation, 1);
 
         int expectedSizeOfElitePopulation = 1;
-        assertNotEquals(expectedSizeOfElitePopulation, elitePopulation.size());
+        assertTrue(initialPopulation.size() > 1);
+        assertEquals(expectedSizeOfElitePopulation, elitePopulation.size());
     }
 
     @Test
     public void deleteGenesFromPool() {
         List<Teacher> teachers = TeachersCreator.getTeachersForDay(1);
 
+        int initSizeOfGenesPool = population.getGenesPool().size();
+
         ArrayList<Teacher> firstTeacher = new ArrayList<>();
         firstTeacher.add(teachers.get(0));
 
-        int initialAmountOfTeachers = teachers.size();
         population.deleteGenesFromPool(new Genome(firstTeacher));
+        int sizeOfGenesPoolAfterDelete = population.getGenesPool().size();
 
-        assertEquals(initialAmountOfTeachers - 1, initialPopulation.size());
+        assertEquals(sizeOfGenesPoolAfterDelete, initSizeOfGenesPool - 1);
     }
 }

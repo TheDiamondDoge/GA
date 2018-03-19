@@ -4,7 +4,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import javax.xml.ws.ResponseWrapper;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -16,10 +15,10 @@ public class TeachersCreatorTest {
     @Test
     public void test001createTeachers() {
         ArrayList<String> xlsStrings = new ArrayList<>();
-        xlsStrings.add("Russian1;1;1");
-        xlsStrings.add("Russian2;2-3;2");
-        xlsStrings.add("Russian3;4,6;3");
-        xlsStrings.add("Russian4;7;4");
+        xlsStrings.add("Russian1;1;1;1");
+        xlsStrings.add("Russian2;2-3;2;1");
+        xlsStrings.add("Russian3;4,6;3;1");
+        xlsStrings.add("Russian4;7;4;1");
 
         teachersCreator = new TeachersCreator(xlsStrings);
         teachersCreator.createTeachers();
@@ -37,7 +36,7 @@ public class TeachersCreatorTest {
     @Test
     public void test003getAllLessons() {
         String rangeOfLessons = "1,3-5,7-9";
-        ArrayList<Integer> lessons = new TeachersCreator().getAllLessons(rangeOfLessons);
+        ArrayList<Integer> lessons = new TeachersCreator().getNumbersFromString(rangeOfLessons);
 
         int expectedAmountOfLessons = 7;
         assertEquals(expectedAmountOfLessons, lessons.size());

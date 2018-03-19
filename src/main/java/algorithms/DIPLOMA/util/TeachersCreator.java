@@ -19,19 +19,23 @@ public class TeachersCreator {
 
     public void createTeachers(){
         ArrayList<Integer> lessons;
+        ArrayList<Integer> grades;
         teachers = new ArrayList<>();
 
         for (String str : parsedXLSStrings){
             String[] fieldsOfObject = str.split(";");
-            lessons = getAllLessons(fieldsOfObject[1]);
+            lessons = getNumbersFromString(fieldsOfObject[1]);
+            grades = getNumbersFromString(fieldsOfObject[3]);
 
             for (int i : lessons){
-                teachers.add(new Teacher(fieldsOfObject[0], i, Character.getNumericValue(fieldsOfObject[2].charAt(0))));
+                for (int j : grades) {
+                    teachers.add(new Teacher(fieldsOfObject[0], i, Character.getNumericValue(fieldsOfObject[2].charAt(0)), j));
+                }
             }
         }
     }
 
-    public ArrayList<Integer> getAllLessons(String rangeOfLessons){
+    public ArrayList<Integer> getNumbersFromString(String rangeOfLessons){
         String[] lessons = rangeOfLessons.split(",");
         ArrayList<Integer> result = new ArrayList<>();
 

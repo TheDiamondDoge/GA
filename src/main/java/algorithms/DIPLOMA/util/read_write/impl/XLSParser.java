@@ -35,12 +35,7 @@ public class XLSParser {
 
                 while (cellIterator.hasNext()){
                     Cell currentCell = cellIterator.next();
-
-                    if((currentCell.getColumnIndex() == 0) || (currentCell.getColumnIndex() == 1)){
-                        stringBuilder.append(new DataFormatter().formatCellValue(currentCell)).append(";");
-                    } else if (currentCell.getColumnIndex() == 2){
-                        stringBuilder.append(new DataFormatter().formatCellValue(currentCell)).append(";");
-                    }
+                    stringBuilder.append(new DataFormatter().formatCellValue(currentCell)).append(";");
                 }
 
                 parsedXLSStrings.add(stringBuilder.toString());

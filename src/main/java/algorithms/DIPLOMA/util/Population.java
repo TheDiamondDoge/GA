@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Population {
-    private static final int POPULATION_SIZE = 10;
+    private static final int POPULATION_SIZE = 100;
     private static final double ELITE_RATE = 0.1;
     private static final double SURVIVE_RATE = 0.5;
     private static final double MUTATION_RATE = 0.2;
@@ -122,5 +122,9 @@ public class Population {
     private void deleteTeacherFromGenesPool(int teacherId, int lesson){
         GENES_POOL.removeIf(x -> x.getTeacherId() == teacherId);
         availableTeachersPerLesson[lesson]--;
+    }
+
+    public List<Teacher> getGenesPool() {
+        return GENES_POOL;
     }
 }
