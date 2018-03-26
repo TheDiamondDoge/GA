@@ -2,7 +2,7 @@ package algorithms.DIPLOMA.model;
 
 
 public class Teacher {
-
+    //TODO After creating a genome delete all teachers with same name, lesson, dOTW, but different grade!!!!
     private String name;
     private int lesson;
     private int dayOfTheWeek;

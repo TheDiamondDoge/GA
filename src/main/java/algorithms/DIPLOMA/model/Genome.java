@@ -48,7 +48,7 @@ public class Genome implements Comparable<Genome>{
         StringBuffer stringBuffer = new StringBuffer();
 
         for(Teacher t : day){
-            stringBuffer.append(t.toString() + " ");
+            stringBuffer.append(t.toString()).append(" ");
         }
 
         return stringBuffer.toString() + " " + fitness;
