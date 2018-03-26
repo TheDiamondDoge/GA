@@ -58,7 +58,7 @@ public class XLSWriter {
     private ArrayList<String> sortDaysInWeekOrder(Set<String> keys){
         ArrayList<String> daysOfTheWeek = new ArrayList<>(keys);
 
-        Collections.sort(daysOfTheWeek,(String o1, String o2) -> {
+        daysOfTheWeek.sort((String o1, String o2) -> {
             Map<String, Integer> intValuesForStrings = new HashMap<>();
 
             intValuesForStrings.put("Monday", 1);
