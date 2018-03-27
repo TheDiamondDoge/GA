@@ -29,7 +29,8 @@ public class TeachersCreator {
 
             for (int i : lessons){
                 for (int j : grades) {
-                    teachers.add(new Teacher(fieldsOfObject[0], i, Character.getNumericValue(fieldsOfObject[2].charAt(0)), j));
+                    teachers.add(new Teacher(fieldsOfObject[0], i,
+                            Character.getNumericValue(fieldsOfObject[2].charAt(0)), j));
                 }
             }
         }
