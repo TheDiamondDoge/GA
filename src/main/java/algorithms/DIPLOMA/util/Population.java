@@ -4,6 +4,9 @@ import algorithms.DIPLOMA.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Population {
     private static final int POPULATION_SIZE = 100;
@@ -28,19 +31,20 @@ public class Population {
         }
     }
 
-    public List createInitialPopulation() {
+    public List<Genome> createInitialPopulation() {
         TARGET_SIZE = calcTargetSize();
-        List<Genome> population = new ArrayList<>();
-
-        for (int i = 0; i < POPULATION_SIZE; i++) {
-            ArrayList<Teacher> teachers = new ArrayList<>();
-
-            for (int j = 0; j < TARGET_SIZE; j++) {
-                teachers.add(getRandomTeacher());
-            }
-            population.add(new Genome(teachers));
-        }
+        List<Genome> population = Stream.generate(() -> new Genome(getRandomListForGenome()))
+                .parallel()
+                .limit(POPULATION_SIZE)
+                .collect(Collectors.toList());
         return population;
+    }
+
+    private List<Teacher> getRandomListForGenome(){
+        return Stream.generate(this::getRandomTeacher)
+                .parallel()
+                .limit(TARGET_SIZE)
+                .collect(Collectors.toList());
     }
 
     private int calcTargetSize(){
@@ -98,11 +102,14 @@ public class Population {
     public List<Genome> selectElite(List<Genome> population, int eliteSize) {
         List<Genome> children = new ArrayList<>();
 
+//        IntStream.range(0, eliteSize).map(i -> children.add(new Genome(population.get(i))));
+
         for (int i = 0; i < eliteSize; i++) {
             children.add(new Genome(population.get(i)));
         }
 
         return children;
+//        return Stream.generate(() -> new Genome()).parallel().limit(eliteSize).collect(Collectors.toList());
     }
 
     private Genome mergeNewGenome(Genome g1, Genome g2, int pointOfMerge) {

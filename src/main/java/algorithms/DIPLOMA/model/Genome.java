@@ -3,13 +3,14 @@ package algorithms.DIPLOMA.model;
 import algorithms.DIPLOMA.data.GradeDataObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Genome implements Comparable<Genome>{
     private ArrayList<Teacher> day;
     private int fitness;
 
 
-    public Genome(ArrayList<Teacher> day) {
+    public Genome(List<Teacher> day) {
         this.setDay(new ArrayList<>(day));
         this.calcFitness();
     }
