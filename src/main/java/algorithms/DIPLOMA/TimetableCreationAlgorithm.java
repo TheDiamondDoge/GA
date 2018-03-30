@@ -11,7 +11,7 @@ public class TimetableCreationAlgorithm {
     private static final double MAX_ITER = 1000;
 
     private Population pop;
-    private Map<String, ArrayList<Genome>> result;
+    private Map<Integer, ArrayList<Genome>> result;
 
     public void initTeachersPool(int dayOfTheWeek){
         pop = new Population();
@@ -46,19 +46,16 @@ public class TimetableCreationAlgorithm {
         if (genome.getDay().size() == 0)
             return;
 
-        DayPrinter dayPrinter = new DayPrinter();
-
         int dayOfTheWeekNumeric = genome.getDay().get(0).getDayOfTheWeek();
-        String dayOfTheWeek = dayPrinter.dayOfTheWeekFromNumber(dayOfTheWeekNumeric);
 
-        if (!result.containsKey(dayOfTheWeek)) {
-            result.put(dayOfTheWeek, new ArrayList<>());
+        if (!result.containsKey(dayOfTheWeekNumeric)) {
+            result.put(dayOfTheWeekNumeric, new ArrayList<>());
         }
 
-        result.get(dayOfTheWeek).add(genome);
+        result.get(dayOfTheWeekNumeric).add(genome);
     }
 
-    public Map<String, ArrayList<Genome>> getResult() {
+    public Map<Integer, ArrayList<Genome>> getResult() {
         return result;
     }
 }

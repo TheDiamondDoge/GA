@@ -19,20 +19,22 @@ public class XLSWriter {
         this.outputXLS = outputXLS;
     }
 
-    public void write(Map<String, ArrayList<Genome>> data) {
+    public void write(Map<Integer, ArrayList<Genome>> data) {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("RESULT");
 
         int rowNum = 0;
-        ArrayList<String> days = sortDaysInWeekOrder(data.keySet());
+        ArrayList<Integer> days = new ArrayList<>();
+        days.addAll(data.keySet());
+        Collections.sort(days);
 
-        for (String s : days){
+        for (Integer i : days){
             Row row = sheet.createRow(rowNum++);
             Cell cell = row.createCell(0);
-            cell.setCellValue(s);
+            cell.setCellValue(i);
             row = sheet.createRow(rowNum++);
 
-            ArrayList<Genome> genomes = data.get(s);
+            ArrayList<Genome> genomes = data.get(i);
 
             for (Genome genome : genomes){
                 int colNum = 0;
@@ -53,28 +55,5 @@ public class XLSWriter {
         } catch (IOException e){
             e.printStackTrace();
         }
-    }
-
-    private ArrayList<String> sortDaysInWeekOrder(Set<String> keys){
-        ArrayList<String> daysOfTheWeek = new ArrayList<>(keys);
-
-        daysOfTheWeek.sort((String o1, String o2) -> {
-            Map<String, Integer> intValuesForStrings = new HashMap<>();
-
-            intValuesForStrings.put("Monday", 1);
-            intValuesForStrings.put("Tuesday", 2);
-            intValuesForStrings.put("Wednesday", 3);
-            intValuesForStrings.put("Thursday", 4);
-            intValuesForStrings.put("Friday", 5);
-            intValuesForStrings.put("Saturday", 6);
-            intValuesForStrings.put("Sunday", 7);
-
-            int i1 = intValuesForStrings.get(o1);
-            int i2 = intValuesForStrings.get(o2);
-
-            return Integer.compare(i1, i2);
-        });
-
-        return daysOfTheWeek;
     }
 }
