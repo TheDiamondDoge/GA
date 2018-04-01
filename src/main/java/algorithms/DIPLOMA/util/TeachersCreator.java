@@ -36,6 +36,7 @@ public class TeachersCreator {
         }
     }
 
+    //TODO This function must take lambda to provide ints from string directly OR int value of string
     public ArrayList<Integer> getNumbersFromString(String rangeOfLessons){
         String[] lessons = rangeOfLessons.split(",");
         ArrayList<Integer> result = new ArrayList<>();
