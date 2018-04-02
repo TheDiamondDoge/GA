@@ -29,7 +29,7 @@ public class Genome implements Comparable<Genome>{
         for(int i = 0; i < day.size(); i++){
             fitness += Math.abs(day.get(i).getLesson() - i - 1);
 
-            if (!day.get(i).getGrade().equals(GradeDataObject.GRADE)) {
+            if (!day.get(i).getGrade().equalsIgnoreCase(GradeDataObject.GRADE)) {
                 fitness += Math.abs(getIntValueOfGrade(day.get(i).getGrade()) - getIntValueOfGrade(GradeDataObject.GRADE));
             }
         }
