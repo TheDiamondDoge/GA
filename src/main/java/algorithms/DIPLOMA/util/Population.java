@@ -103,7 +103,6 @@ public class Population {
         List<Genome> children = new ArrayList<>();
 
 //        IntStream.range(0, eliteSize).map(i -> children.add(new Genome(population.get(i))));
-
         for (int i = 0; i < eliteSize; i++) {
             children.add(new Genome(population.get(i)));
         }

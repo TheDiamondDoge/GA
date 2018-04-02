@@ -28,8 +28,19 @@ public class Genome implements Comparable<Genome>{
         fitness = 0;
         for(int i = 0; i < day.size(); i++){
             fitness += Math.abs(day.get(i).getLesson() - i - 1);
-            fitness += Math.abs(day.get(i).getGrade() - GradeDataObject.GRADE);
+
+            if (!day.get(i).getGrade().equals(GradeDataObject.GRADE)) {
+                fitness += Math.abs(getIntValueOfGrade(day.get(i).getGrade()) - getIntValueOfGrade(GradeDataObject.GRADE));
+            }
         }
+    }
+
+    private int getIntValueOfGrade(String grade){
+        int result = 0;
+        for (int i = 0; i < grade.length(); i++){
+            result += Character.getNumericValue(grade.charAt(i));
+        }
+        return result;
     }
 
     public ArrayList<Teacher> getDay() {

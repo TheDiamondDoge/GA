@@ -45,16 +45,16 @@ public class PopulationTest {
     public void mutateGenome() {
         ArrayList<Teacher> teachers = new ArrayList<>();
 
-        teachers.add(new Teacher("Russian", 1, 1, 1));
-        teachers.add(new Teacher("Russian", 1, 1, 1));
-        teachers.add(new Teacher("Russian", 1, 1, 1));
-        teachers.add(new Teacher("Russian", 1, 1, 1));
-        teachers.add(new Teacher("Russian", 1, 1, 1));
-        teachers.add(new Teacher("Russian", 1, 1, 1));
-        teachers.add(new Teacher("Russian", 1, 1, 1));
-        teachers.add(new Teacher("Russian", 1, 1, 1));
-        teachers.add(new Teacher("Russian", 1, 1, 1));
-        teachers.add(new Teacher("Russian", 1, 1, 1));
+        teachers.add(new Teacher("Russian", 1, 1, "1a"));
+        teachers.add(new Teacher("Russian", 1, 1, "1a"));
+        teachers.add(new Teacher("Russian", 1, 1, "1a"));
+        teachers.add(new Teacher("Russian", 1, 1, "1a"));
+        teachers.add(new Teacher("Russian", 1, 1, "1a"));
+        teachers.add(new Teacher("Russian", 1, 1, "1a"));
+        teachers.add(new Teacher("Russian", 1, 1, "1a"));
+        teachers.add(new Teacher("Russian", 1, 1, "1a"));
+        teachers.add(new Teacher("Russian", 1, 1, "1a"));
+        teachers.add(new Teacher("Russian", 1, 1, "1a"));
 
         Genome genome = new Genome(teachers);
         Genome mutatedGenome = population.mutateGenome(genome);

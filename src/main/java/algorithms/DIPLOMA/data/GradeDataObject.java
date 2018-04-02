@@ -1,5 +1,5 @@
 package algorithms.DIPLOMA.data;
 
 public class GradeDataObject {
-    public static int GRADE;
+    public static String GRADE = "1a";
 }

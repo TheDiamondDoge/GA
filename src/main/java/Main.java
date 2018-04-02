@@ -27,7 +27,7 @@ public class Main {
         for (int x = 1; x < 6; x++) {
             dayPrinter.printDayOfTheWeek(x);
             timetableCreationAlgorithm.initTeachersPool(x);
-            GradeDataObject.GRADE = 1;
+            GradeDataObject.GRADE = "1";
 
             for (int i = 0; i < 3; i++) {
                 timetableCreationAlgorithm.start();

@@ -7,12 +7,12 @@ public class Teacher {
     private int lesson;
     private int dayOfTheWeek;
     private int teacherId;
-    private int grade;
+    private String grade;
     //TODO in case of multithreading THIS id will be a problem cuz non-atomic
     private static int TEACHERS_AMOUNT = 0;
 
 
-    public Teacher(String name, int lesson, int dayOfTheWeek, int grade) {
+    public Teacher(String name, int lesson, int dayOfTheWeek, String grade) {
         teacherId = generateTeacherId();
         this.name = name;
         this.lesson = lesson;
@@ -52,11 +52,11 @@ public class Teacher {
         return teacherId;
     }
 
-    public int getGrade() {
+    public String getGrade() {
         return grade;
     }
 
-    public void setGrade(int grade) {
+    public void setGrade(String grade) {
         this.grade = grade;
     }
 
