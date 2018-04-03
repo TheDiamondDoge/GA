@@ -33,11 +33,10 @@ public class Population {
 
     public List<Genome> createInitialPopulation() {
         TARGET_SIZE = calcTargetSize();
-        List<Genome> population = Stream.generate(() -> new Genome(getRandomListForGenome()))
+        return Stream.generate(() -> new Genome(getRandomListForGenome()))
                 .parallel()
                 .limit(POPULATION_SIZE)
                 .collect(Collectors.toList());
-        return population;
     }
 
     private List<Teacher> getRandomListForGenome(){
@@ -57,10 +56,7 @@ public class Population {
     }
 
     private boolean isThereAnyAvailableTeacher(int lessonNum){
-        if (availableTeachersPerLesson[lessonNum] == 0)
-            return true;
-        else
-            return false;
+        return availableTeachersPerLesson[lessonNum] == 0;
     }
 
     public Genome mutateGenome(Genome genome) {
@@ -122,11 +118,14 @@ public class Population {
     }
 
     public void deleteGenesFromPool(Genome genome){
-        genome.getDay().forEach(x -> deleteTeacherFromGenesPool(x.getTeacherId(), x.getLesson()));
+        genome.getDay().forEach(x -> deleteTeacherFromGenesPool(x, x.getLesson()));
     }
 
-    private void deleteTeacherFromGenesPool(int teacherId, int lesson){
-        GENES_POOL.removeIf(x -> x.getTeacherId() == teacherId);
+    private void deleteTeacherFromGenesPool(Teacher teacher, int lesson){
+        GENES_POOL.removeIf(x -> x.getName().equals(teacher.getName())
+                              && x.getLesson() == teacher.getLesson()
+                              && x.getDayOfTheWeek() == teacher.getDayOfTheWeek());
+
         availableTeachersPerLesson[lesson]--;
     }
 

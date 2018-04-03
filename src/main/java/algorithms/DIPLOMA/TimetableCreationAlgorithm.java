@@ -1,5 +1,6 @@
 package algorithms.DIPLOMA;
 
+import algorithms.DIPLOMA.data.GradeDataObject;
 import algorithms.DIPLOMA.model.Genome;
 import algorithms.DIPLOMA.util.Population;
 import algorithms.DIPLOMA.util.printers.DayPrinter;
@@ -8,7 +9,7 @@ import java.util.*;
 
 public class TimetableCreationAlgorithm {
 
-    private static final double MAX_ITER = 1000;
+    private static final double MAX_ITER = 100;
 
     private Population pop;
     private Map<Integer, ArrayList<Genome>> result;
@@ -31,7 +32,8 @@ public class TimetableCreationAlgorithm {
             if (population.get(0).getFitness() == 0) {
                 addToMap(population.get(0));
 
-                System.out.print(i + " > ");
+                //System.out.print(i + " > ");
+                System.out.print(GradeDataObject.GRADE + " > ");
                 System.out.println(population.get(0));
 
                 pop.deleteGenesFromPool(population.get(0));

@@ -8,6 +8,7 @@ import algorithms.DIPLOMA.util.read_write.impl.XLSWriter;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -20,16 +21,17 @@ public class Main {
         ArrayList<String> parsedXLSStrings = xlsParser.parse();
         TeachersCreator teachersCreator = new TeachersCreator(parsedXLSStrings);
         teachersCreator.createTeachers();
+        List<String> grades = teachersCreator.getAllGradesFromXls();
 
         TimetableCreationAlgorithm timetableCreationAlgorithm = new TimetableCreationAlgorithm();
         DayPrinter dayPrinter = new DayPrinter();
 
-        for (int x = 1; x < 6; x++) {
+        for (int x = 1; x < 2; x++) {
             dayPrinter.printDayOfTheWeek(x);
             timetableCreationAlgorithm.initTeachersPool(x);
-            GradeDataObject.GRADE = "1a";
 
-            for (int i = 0; i < 3; i++) {
+            for (String grade : grades) {
+                GradeDataObject.GRADE = grade;
                 timetableCreationAlgorithm.start();
             }
         }

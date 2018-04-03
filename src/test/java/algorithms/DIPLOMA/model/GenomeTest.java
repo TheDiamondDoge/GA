@@ -15,9 +15,9 @@ public class GenomeTest {
     public void testCalcFitness() {
         ArrayList<Teacher> teachers = new ArrayList<>();
 
-        teachers.add(new Teacher("Teacher1", 3, 1, "1a"));
-        teachers.add(new Teacher("Teacher2", 2, 1, "1a"));
-        teachers.add(new Teacher("Teacher3", 1, 1, "1a"));
+        teachers.add(new Teacher("Teacher1", 3, 1, "5a"));
+        teachers.add(new Teacher("Teacher2", 2, 1, "5a"));
+        teachers.add(new Teacher("Teacher3", 1, 1, "5a"));
 
         Genome genome = new Genome(teachers);
 
@@ -27,9 +27,9 @@ public class GenomeTest {
 
         teachers = new ArrayList<>();
 
-        teachers.add(new Teacher("Teacher3", 1, 1, "1a"));
-        teachers.add(new Teacher("Teacher2", 2, 1, "1a"));
-        teachers.add(new Teacher("Teacher1", 3, 1, "1a"));
+        teachers.add(new Teacher("Teacher3", 1, 1, "5a"));
+        teachers.add(new Teacher("Teacher2", 2, 1, "5a"));
+        teachers.add(new Teacher("Teacher1", 3, 1, "5a"));
 
         genome = new Genome(teachers);
 
@@ -37,6 +37,17 @@ public class GenomeTest {
 
         assertEquals(expectedFitness, genome.getFitness());
     }
+
+    @Test
+    public void andAnotherOne(){
+        ArrayList<Teacher> teachers = new ArrayList<>();
+
+        teachers.add(new Teacher("Teacher1", 1, 1, "5a"));
+        teachers.add(new Teacher("Teacher2", 2, 1, "5a"));
+
+        System.out.println(new Genome(teachers));
+    }
+
 
     @Ignore
     @Test
