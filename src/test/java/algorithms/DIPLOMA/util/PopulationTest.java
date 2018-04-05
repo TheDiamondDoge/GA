@@ -37,7 +37,7 @@ public class PopulationTest {
     public void createInitialPopulation() {
         initialPopulation = population.createInitialPopulation();
 
-        int expectedSizeOfPopulation = 1000;
+        int expectedSizeOfPopulation = 100;
         assertEquals(expectedSizeOfPopulation, initialPopulation.size());
     }
 

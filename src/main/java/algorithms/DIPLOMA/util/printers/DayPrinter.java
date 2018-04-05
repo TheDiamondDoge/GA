@@ -2,7 +2,7 @@ package algorithms.DIPLOMA.util.printers;
 
 public class DayPrinter {
 
-    public String dayOfTheWeekFromNumber(int dayOfTheWeek){
+    public static String dayOfTheWeekFromNumber(int dayOfTheWeek){
         switch (dayOfTheWeek){
             case 1: return "Monday";
             case 2: return "Tuesday";

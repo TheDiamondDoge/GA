@@ -2,6 +2,7 @@ package algorithms.DIPLOMA.util.read_write.impl;
 
 import algorithms.DIPLOMA.model.*;
 import algorithms.DIPLOMA.util.PropertiesExtractor;
+import algorithms.DIPLOMA.util.printers.DayPrinter;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 
@@ -31,7 +32,7 @@ public class XLSWriter {
         for (Integer i : days){
             Row row = sheet.createRow(rowNum++);
             Cell cell = row.createCell(0);
-            cell.setCellValue(i);
+            cell.setCellValue(DayPrinter.dayOfTheWeekFromNumber(i));
             row = sheet.createRow(rowNum++);
 
             ArrayList<Genome> genomes = data.get(i);

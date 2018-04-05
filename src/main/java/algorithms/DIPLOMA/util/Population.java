@@ -9,10 +9,10 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Population {
-    private static final int POPULATION_SIZE = 100;
+    private static final int POPULATION_SIZE = 1000;
     private static final double ELITE_RATE = 0.1;
     private static final double SURVIVE_RATE = 0.5;
-    private static final double MUTATION_RATE = 0.2;
+    private static final double MUTATION_RATE = 0.5;
     private List<Teacher> GENES_POOL;
     private int[] availableTeachersPerLesson = new int[10];
     private int TARGET_SIZE = 10;
@@ -122,11 +122,12 @@ public class Population {
     }
 
     private void deleteTeacherFromGenesPool(Teacher teacher, int lesson){
+        int beforeSize = GENES_POOL.size();
         GENES_POOL.removeIf(x -> x.getName().equals(teacher.getName())
                               && x.getLesson() == teacher.getLesson()
                               && x.getDayOfTheWeek() == teacher.getDayOfTheWeek());
 
-        availableTeachersPerLesson[lesson]--;
+        availableTeachersPerLesson[lesson] =  availableTeachersPerLesson[lesson] - (beforeSize - GENES_POOL.size());
     }
 
     public List<Teacher> getGenesPool() {

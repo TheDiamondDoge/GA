@@ -9,7 +9,8 @@ import java.util.*;
 
 public class TimetableCreationAlgorithm {
 
-    private static final double MAX_ITER = 100;
+    private static final double MAX_ITER = 1000;
+    private static int GRADES_CREATED = 0;
 
     private Population pop;
     private Map<Integer, ArrayList<Genome>> result;
@@ -37,6 +38,7 @@ public class TimetableCreationAlgorithm {
                 System.out.println(population.get(0));
 
                 pop.deleteGenesFromPool(population.get(0));
+                GRADES_CREATED++;
                 break;
             }
 
@@ -59,5 +61,13 @@ public class TimetableCreationAlgorithm {
 
     public Map<Integer, ArrayList<Genome>> getResult() {
         return result;
+    }
+
+    public static void setGradesCreated(int gradesCreated) {
+        GRADES_CREATED = gradesCreated;
+    }
+
+    public static int getGradesCreated() {
+        return GRADES_CREATED;
     }
 }

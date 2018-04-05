@@ -13,6 +13,7 @@ public class GenomeTest {
 
     @Test
     public void testCalcFitness() {
+        GradeDataObject.GRADE = "5a";
         ArrayList<Teacher> teachers = new ArrayList<>();
 
         teachers.add(new Teacher("Teacher1", 3, 1, "5a"));
