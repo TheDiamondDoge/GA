@@ -2,38 +2,17 @@ package algorithms.DIPLOMA.model;
 
 
 public class Teacher {
-    //TODO After creating a genome delete all teachers with same name, lesson, dOTW, but different grade!!!!
     private String name;
     private int lesson;
     private int dayOfTheWeek;
-    private int teacherId;
     private String grade;
-    //TODO in case of multithreading THIS id will be a problem cuz non-atomic
-    private static int TEACHERS_AMOUNT = 0;
 
 
     public Teacher(String name, int lesson, int dayOfTheWeek, String grade) {
-        teacherId = generateTeacherId();
         this.name = name;
         this.lesson = lesson;
         this.dayOfTheWeek = dayOfTheWeek;
         this.grade = grade;
-    }
-
-    public Teacher(String name, int lesson, int dayOfTheWeek) {
-        teacherId = generateTeacherId();
-        this.name = name;
-        this.lesson = lesson;
-        this.dayOfTheWeek = dayOfTheWeek;
-    }
-
-    private int generateTeacherId(){
-        increaseTeachersAmount();
-        return TEACHERS_AMOUNT;
-    }
-
-    private void increaseTeachersAmount(){
-        TEACHERS_AMOUNT += 1;
     }
 
     public String getName() {
@@ -48,16 +27,8 @@ public class Teacher {
         return dayOfTheWeek;
     }
 
-    public int getTeacherId() {
-        return teacherId;
-    }
-
     public String getGrade() {
         return grade;
-    }
-
-    public void setGrade(String grade) {
-        this.grade = grade;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package algorithms.DIPLOMA.util;
 
 import algorithms.DIPLOMA.data.GradeDataObject;
+import algorithms.DIPLOMA.data.LessonLimits;
 import algorithms.DIPLOMA.model.*;
 import algorithms.DIPLOMA.util.creators.TeachersCreator;
 

@@ -4,7 +4,6 @@ import algorithms.DIPLOMA.util.PropertiesExtractor;
 import algorithms.DIPLOMA.util.read_write.impl.XLSParser;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,10 +26,11 @@ public class LimitsCreator {
     }
 
     public List<String> parseLimitsFromFile(){
-        List<String> parsedLimits;
+        List<String> parsedLimitsFromXLS;
+        PropertiesExtractor.setPropertiesFile(new File("app.properties"));
         File fileForParse = new File(PropertiesExtractor.getLimitsFilepath());
         XLSParser xlsParser = new XLSParser(fileForParse);
-        parsedLimits = xlsParser.parse();
-        return parsedLimits;
+        parsedLimitsFromXLS = xlsParser.parse();
+        return parsedLimitsFromXLS;
     }
 }

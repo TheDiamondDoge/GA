@@ -1,5 +1,6 @@
 package algorithms.DIPLOMA.util;
 
+import algorithms.DIPLOMA.data.GradeDataObject;
 import algorithms.DIPLOMA.model.Genome;
 import algorithms.DIPLOMA.model.Teacher;
 import algorithms.DIPLOMA.util.creators.TeachersCreator;
@@ -34,6 +35,7 @@ public class PopulationTest {
 
     @Test
     public void createInitialPopulation() {
+
         initialPopulation = population.createInitialPopulation();
 
         int expectedSizeOfPopulation = 100;

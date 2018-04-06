@@ -1,4 +1,4 @@
-package algorithms.DIPLOMA.util;
+package algorithms.DIPLOMA.data;
 
 import algorithms.DIPLOMA.util.creators.LimitsCreator;
 

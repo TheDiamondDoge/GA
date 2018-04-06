@@ -10,9 +10,6 @@ public class Genome implements Comparable<Genome>{
     private int fitness;
 
 
-    public Genome() {
-    }
-
     public Genome(List<Teacher> day) {
         this.setDay(new ArrayList<>(day));
         this.calcFitness();
