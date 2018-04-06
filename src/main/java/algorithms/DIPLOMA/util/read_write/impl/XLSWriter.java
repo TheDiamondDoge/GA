@@ -23,8 +23,22 @@ public class XLSWriter {
 
     public void write(Map<Integer, ArrayList<Genome>> data) {
         XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet("RESULT");
+        XSSFSheet gradesSheet = workbook.createSheet("Классы");
+        XSSFSheet teachersSheet = workbook.createSheet("Учителя");
+        sheetForGrades(gradesSheet, data);
 
+        try{
+            FileOutputStream outputStream = new FileOutputStream(outputXLS);
+            workbook.write(outputStream);
+            workbook.close();
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void sheetForGrades(XSSFSheet sheet, Map<Integer, ArrayList<Genome>> data){
         int rowNum = 0;
         ArrayList<Integer> days = new ArrayList<>(data.keySet());
         Collections.sort(days);
@@ -48,15 +62,9 @@ public class XLSWriter {
                 row = sheet.createRow(rowNum++);
             }
         }
+    }
 
-        try{
-            FileOutputStream outputStream = new FileOutputStream(outputXLS);
-            workbook.write(outputStream);
-            workbook.close();
-        } catch (FileNotFoundException e){
-            e.printStackTrace();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+    private XSSFSheet sheetForTeachers(){
+        return null;
     }
 }
