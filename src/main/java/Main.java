@@ -1,15 +1,14 @@
 import algorithms.DIPLOMA.TimetableCreationAlgorithm;
 import algorithms.DIPLOMA.data.GradeDataObject;
+import algorithms.DIPLOMA.model.Genome;
 import algorithms.DIPLOMA.util.PropertiesExtractor;
-import algorithms.DIPLOMA.util.TeachersCreator;
+import algorithms.DIPLOMA.util.creators.TeachersCreator;
 import algorithms.DIPLOMA.util.printers.DayPrinter;
 import algorithms.DIPLOMA.util.read_write.impl.XLSParser;
 import algorithms.DIPLOMA.util.read_write.impl.XLSWriter;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Main {
 
@@ -26,12 +25,15 @@ public class Main {
 
 
         TimetableCreationAlgorithm timetableCreationAlgorithm = new TimetableCreationAlgorithm();
+        Map<Integer, ArrayList<Genome>> timetable = new HashMap<>();
         DayPrinter dayPrinter = new DayPrinter();
 
         grades.remove("1f");
         for (int x = 1; x < 6; x++) {
             TimetableCreationAlgorithm.setGradesCreated(0);
+            ArrayList<Genome> temp = new ArrayList<>();
             while (TimetableCreationAlgorithm.getGradesCreated() != grades.size()) {
+                temp = new ArrayList<>();
                 TimetableCreationAlgorithm.setGradesCreated(0);
                 dayPrinter.printDayOfTheWeek(x);
                 timetableCreationAlgorithm.initTeachersPool(x);
@@ -39,13 +41,14 @@ public class Main {
                 //TODO limit amount of lessons per day by grades
                 for (String grade : grades) {
                     GradeDataObject.GRADE = grade;
-                    timetableCreationAlgorithm.start();
+                    temp.add(timetableCreationAlgorithm.start());
                 }
             }
+
+            timetable.put(x, temp);
         }
 
-
         XLSWriter xlsWriter = new XLSWriter(outputFile);
-        xlsWriter.write(timetableCreationAlgorithm.getResult());
+        xlsWriter.write(timetable);
     }
 }

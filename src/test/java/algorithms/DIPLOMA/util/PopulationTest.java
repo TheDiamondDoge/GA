@@ -2,9 +2,8 @@ package algorithms.DIPLOMA.util;
 
 import algorithms.DIPLOMA.model.Genome;
 import algorithms.DIPLOMA.model.Teacher;
-import org.junit.Before;
+import algorithms.DIPLOMA.util.creators.TeachersCreator;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;

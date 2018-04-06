@@ -1,7 +1,8 @@
-package algorithms.DIPLOMA.util;
+package algorithms.DIPLOMA.util.creators;
 
 import algorithms.DIPLOMA.data.GradeDataObject;
 import algorithms.DIPLOMA.model.Teacher;
+import algorithms.DIPLOMA.util.CustomComparator;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -12,7 +13,7 @@ public class TeachersCreator {
     private List<String> allGradesFromXls;
 
 
-    TeachersCreator() {
+    public TeachersCreator() {
     }
 
     public TeachersCreator(List<String> parsedXLSStrings) {

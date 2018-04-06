@@ -10,6 +10,9 @@ public class Genome implements Comparable<Genome>{
     private int fitness;
 
 
+    public Genome() {
+    }
+
     public Genome(List<Teacher> day) {
         this.setDay(new ArrayList<>(day));
         this.calcFitness();
@@ -57,13 +60,13 @@ public class Genome implements Comparable<Genome>{
 
     @Override
     public String toString() {
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuilder = new StringBuilder();
 
         for(Teacher t : day){
-            stringBuffer.append(t.toString()).append(" ");
+            stringBuilder.append(t.toString()).append(" ");
         }
 
-        return stringBuffer.toString() + " " + fitness;
+        return stringBuilder.toString() + " " + fitness;
     }
 
     @Override

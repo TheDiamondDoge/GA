@@ -1,18 +1,19 @@
 package algorithms.DIPLOMA.util;
 
+import algorithms.DIPLOMA.data.GradeDataObject;
 import algorithms.DIPLOMA.model.*;
+import algorithms.DIPLOMA.util.creators.TeachersCreator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Population {
-    private static final int POPULATION_SIZE = 1000;
     private static final double ELITE_RATE = 0.1;
     private static final double SURVIVE_RATE = 0.5;
     private static final double MUTATION_RATE = 0.5;
+    private int populationSize = 100;
     private List<Teacher> GENES_POOL;
     private int[] availableTeachersPerLesson = new int[10];
     private int TARGET_SIZE = 10;
@@ -32,17 +33,10 @@ public class Population {
     }
 
     public List<Genome> createInitialPopulation() {
-        TARGET_SIZE = calcTargetSize();
+        TARGET_SIZE = LessonLimits.getLessonLimit(GradeDataObject.GRADE);
         return Stream.generate(() -> new Genome(getRandomListForGenome()))
                 .parallel()
-                .limit(POPULATION_SIZE)
-                .collect(Collectors.toList());
-    }
-
-    private List<Teacher> getRandomListForGenome(){
-        return Stream.generate(this::getRandomTeacher)
-                .parallel()
-                .limit(TARGET_SIZE)
+                .limit(populationSize)
                 .collect(Collectors.toList());
     }
 
@@ -53,6 +47,13 @@ public class Population {
             }
         }
         return availableTeachersPerLesson.length - 1;
+    }
+
+    private List<Teacher> getRandomListForGenome(){
+        return Stream.generate(this::getRandomTeacher)
+                .parallel()
+                .limit(TARGET_SIZE)
+                .collect(Collectors.toList());
     }
 
     private boolean isThereAnyAvailableTeacher(int lessonNum){
@@ -76,12 +77,12 @@ public class Population {
 
     //mate
     public List<Genome> mergeRandomGenomes(List<Genome> population) {
-        int eliteSize = (int) (POPULATION_SIZE * ELITE_RATE);
+        int eliteSize = (int) (populationSize * ELITE_RATE);
         List<Genome> children = selectElite(population, eliteSize);
 
-        for (int i = eliteSize; i < POPULATION_SIZE; i++) {
-            int firstRandomGenome = (int) (Math.random() * POPULATION_SIZE * SURVIVE_RATE);
-            int secondRandomGenome = (int) (Math.random() * POPULATION_SIZE * SURVIVE_RATE);
+        for (int i = eliteSize; i < populationSize; i++) {
+            int firstRandomGenome = (int) (Math.random() * populationSize * SURVIVE_RATE);
+            int secondRandomGenome = (int) (Math.random() * populationSize * SURVIVE_RATE);
             int pointOfMerge = (int) (Math.random() * TARGET_SIZE);
 
             Genome genome = mergeNewGenome(population.get(firstRandomGenome),
@@ -97,14 +98,10 @@ public class Population {
 
     public List<Genome> selectElite(List<Genome> population, int eliteSize) {
         List<Genome> children = new ArrayList<>();
-
-//        IntStream.range(0, eliteSize).map(i -> children.add(new Genome(population.get(i))));
         for (int i = 0; i < eliteSize; i++) {
             children.add(new Genome(population.get(i)));
         }
-
         return children;
-//        return Stream.generate(() -> new Genome()).parallel().limit(eliteSize).collect(Collectors.toList());
     }
 
     private Genome mergeNewGenome(Genome g1, Genome g2, int pointOfMerge) {
@@ -132,5 +129,9 @@ public class Population {
 
     public List<Teacher> getGenesPool() {
         return GENES_POOL;
+    }
+
+    public void setPopulationSize(int populationSize) {
+        this.populationSize = populationSize;
     }
 }

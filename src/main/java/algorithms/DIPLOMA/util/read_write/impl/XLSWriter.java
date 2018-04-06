@@ -1,6 +1,7 @@
 package algorithms.DIPLOMA.util.read_write.impl;
 
 import algorithms.DIPLOMA.model.*;
+import algorithms.DIPLOMA.util.CustomComparator;
 import algorithms.DIPLOMA.util.PropertiesExtractor;
 import algorithms.DIPLOMA.util.printers.DayPrinter;
 import org.apache.poi.ss.usermodel.*;
@@ -25,8 +26,7 @@ public class XLSWriter {
         XSSFSheet sheet = workbook.createSheet("RESULT");
 
         int rowNum = 0;
-        ArrayList<Integer> days = new ArrayList<>();
-        days.addAll(data.keySet());
+        ArrayList<Integer> days = new ArrayList<>(data.keySet());
         Collections.sort(days);
 
         for (Integer i : days){
@@ -39,6 +39,8 @@ public class XLSWriter {
 
             for (Genome genome : genomes){
                 int colNum = 0;
+                cell = row.createCell(colNum++);
+                cell.setCellValue(genome.getDay().get(0).getGrade());
                 for (Teacher teacher : genome.getDay()){
                     cell = row.createCell(colNum++);
                     cell.setCellValue(teacher.toString());

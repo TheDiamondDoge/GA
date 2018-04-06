@@ -1,6 +1,6 @@
 package algorithms.DIPLOMA.util;
 
-import org.junit.BeforeClass;
+import algorithms.DIPLOMA.util.creators.TeachersCreator;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;

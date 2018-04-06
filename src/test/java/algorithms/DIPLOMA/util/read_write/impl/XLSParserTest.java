@@ -1,8 +1,6 @@
 package algorithms.DIPLOMA.util.read_write.impl;
 
-import algorithms.DIPLOMA.util.TeachersCreator;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
