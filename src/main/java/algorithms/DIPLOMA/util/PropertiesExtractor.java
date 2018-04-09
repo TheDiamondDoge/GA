@@ -10,7 +10,8 @@ public class PropertiesExtractor {
     private static File PROPERTIES_FILE;
     private static String INPUT_FILEPATH;
     private static String OUTPUT_FILEPATH;
-    private static String LIMITS_FILEPATH;
+    private static String DAYLIMITS_FILEPATH;
+    private static String WEEKLIMITS_FILEPATH;
 
     public static void setPropertiesFile(File propertiesFile) {
         PROPERTIES_FILE = propertiesFile;
@@ -25,7 +26,8 @@ public class PropertiesExtractor {
             properties.load(inputStream);
             INPUT_FILEPATH = properties.getProperty("inputFile");
             OUTPUT_FILEPATH = properties.getProperty("outputFile");
-            LIMITS_FILEPATH = properties.getProperty("limitsFile");
+            DAYLIMITS_FILEPATH = properties.getProperty("dayLimitsFile");
+            WEEKLIMITS_FILEPATH = properties.getProperty("weekLimitsFile");
 
         } catch (IOException e){
             e.printStackTrace();
@@ -40,7 +42,11 @@ public class PropertiesExtractor {
         return OUTPUT_FILEPATH;
     }
 
-    public static String getLimitsFilepath() {
-        return LIMITS_FILEPATH;
+    public static String getDaylimitsFilepath() {
+        return DAYLIMITS_FILEPATH;
+    }
+
+    public static String getWeeklimitsFilepath() {
+        return WEEKLIMITS_FILEPATH;
     }
 }

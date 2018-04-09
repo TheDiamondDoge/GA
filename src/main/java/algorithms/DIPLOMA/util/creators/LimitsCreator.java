@@ -28,7 +28,7 @@ public class LimitsCreator {
     public List<String> parseLimitsFromFile(){
         List<String> parsedLimitsFromXLS;
         PropertiesExtractor.setPropertiesFile(new File("app.properties"));
-        File fileForParse = new File(PropertiesExtractor.getLimitsFilepath());
+        File fileForParse = new File(PropertiesExtractor.getDaylimitsFilepath());
         XLSParser xlsParser = new XLSParser(fileForParse);
         parsedLimitsFromXLS = xlsParser.parse();
         return parsedLimitsFromXLS;
