@@ -29,15 +29,16 @@ public class TeachersCreator {
         for (String str : parsedXLSStrings) {
             String[] fieldsOfObject = str.split(";");
             if (fieldsOfObject.length > 0) {
-                lessons = getNumbersFromString(fieldsOfObject[1]);
-                List<String> grades = getGradesFromString(fieldsOfObject[3]);
+                lessons = getNumbersFromString(fieldsOfObject[2]);
+                List<String> grades = getGradesFromString(fieldsOfObject[4]);
 
                 for (int i : lessons) {
                     for (String g : grades) {
                         GradeDataObject.GRADE = g;
                         gradesSetTemp.add(g);
-                        teachers.add(new Teacher(fieldsOfObject[0], i,
-                                Character.getNumericValue(fieldsOfObject[2].charAt(0)), g));
+                        int dayOfTheWeek = Character.getNumericValue(fieldsOfObject[3].charAt(0));
+                        teachers.add(new Teacher(fieldsOfObject[0], fieldsOfObject[1] , i,
+                                dayOfTheWeek, g));
                     }
                 }
             }
@@ -47,6 +48,8 @@ public class TeachersCreator {
 
         if (allGradesFromXls.contains(""))
             allGradesFromXls.remove("");
+
+        addPlaceholderdsForCorrectRandomWorking();
     }
 
     //TODO This function must take lambda to provide ints from string directly OR int value of string
@@ -99,6 +102,16 @@ public class TeachersCreator {
             }
         }
         return result;
+    }
+
+    private static void addPlaceholderdsForCorrectRandomWorking(){
+        teachers.add(new Teacher("placeholder", "placeholder", 1, 1,"1f"));
+        teachers.add(new Teacher("placeholder", "placeholder", 1, 2,"1f"));
+        teachers.add(new Teacher("placeholder", "placeholder", 1, 3,"1f"));
+        teachers.add(new Teacher("placeholder", "placeholder", 1, 4,"1f"));
+        teachers.add(new Teacher("placeholder", "placeholder", 1, 5,"1f"));
+        teachers.add(new Teacher("placeholder", "placeholder", 1, 6,"1f"));
+        teachers.add(new Teacher("placeholder", "placeholder", 1, 7,"1f"));
     }
 
     public static List<Teacher> getTeachersForDay(int dayOfTheWeek) {

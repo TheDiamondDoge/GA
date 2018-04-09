@@ -16,9 +16,9 @@ public class GenomeTest {
         GradeDataObject.GRADE = "5a";
         ArrayList<Teacher> teachers = new ArrayList<>();
 
-        teachers.add(new Teacher("Teacher1", 3, 1, "5a"));
-        teachers.add(new Teacher("Teacher2", 2, 1, "5a"));
-        teachers.add(new Teacher("Teacher3", 1, 1, "5a"));
+        teachers.add(new Teacher("Teacher1", "subject",3, 1, "5a"));
+        teachers.add(new Teacher("Teacher2", "subject", 2, 1, "5a"));
+        teachers.add(new Teacher("Teacher3", "subject", 1, 1, "5a"));
 
         Genome genome = new Genome(teachers);
 
@@ -28,9 +28,9 @@ public class GenomeTest {
 
         teachers = new ArrayList<>();
 
-        teachers.add(new Teacher("Teacher3", 1, 1, "5a"));
-        teachers.add(new Teacher("Teacher2", 2, 1, "5a"));
-        teachers.add(new Teacher("Teacher1", 3, 1, "5a"));
+        teachers.add(new Teacher("Teacher3", "subject", 1, 1, "5a"));
+        teachers.add(new Teacher("Teacher2", "subject", 2, 1, "5a"));
+        teachers.add(new Teacher("Teacher1", "subject", 3, 1, "5a"));
 
         genome = new Genome(teachers);
 
@@ -43,8 +43,8 @@ public class GenomeTest {
     public void andAnotherOne(){
         ArrayList<Teacher> teachers = new ArrayList<>();
 
-        teachers.add(new Teacher("Teacher1", 1, 1, "5a"));
-        teachers.add(new Teacher("Teacher2", 2, 1, "5a"));
+        teachers.add(new Teacher("Teacher1", "subject", 1, 1, "5a"));
+        teachers.add(new Teacher("Teacher2", "subject", 2, 1, "5a"));
 
         System.out.println(new Genome(teachers));
     }

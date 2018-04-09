@@ -14,8 +14,9 @@ public class Teacher {
     private String subjectName;
 
 
-    public Teacher(String name, int lesson, int dayOfTheWeek, String grade) {
+    public Teacher(String name, String subjectName, int lesson, int dayOfTheWeek, String grade) {
         this.name = name;
+        this.subjectName = subjectName;
         this.lesson = lesson;
         this.dayOfTheWeek = dayOfTheWeek;
         this.grade = grade;
