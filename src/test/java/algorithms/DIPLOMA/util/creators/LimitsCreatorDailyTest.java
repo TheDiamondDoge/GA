@@ -2,7 +2,6 @@ package algorithms.DIPLOMA.util.creators;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ import static org.mockito.Mockito.*;
 
 import static org.junit.Assert.*;
 
-public class LimitsCreatorTest {
+public class LimitsCreatorDailyTest {
     private static List<String> parsedStrings;
 
     @BeforeClass
@@ -25,11 +24,11 @@ public class LimitsCreatorTest {
 
     @Test
     public void createLimitsFromList() {
-        LimitsCreator limitsCreator = mock(LimitsCreator.class);
-        when(limitsCreator.parseLimitsFromFile()).thenReturn(parsedStrings);
-        when(limitsCreator.createLimitsFromList()).thenCallRealMethod();
+        LimitsCreatorDaily limitsCreatorDaily = new LimitsCreatorDaily(parsedStrings);
+//        when(limitsCreatorDaily.parseLimitsFromFile(anyString())).thenReturn(parsedStrings);
+//        when(limitsCreatorDaily.createLimitsFromList()).thenCallRealMethod();
 
-        Map<String, Integer> limits = limitsCreator.createLimitsFromList();
+        Map<String, Integer> limits = limitsCreatorDaily.createLimitsFromList();
         assertEquals(1, limits.get("1а").intValue());
         assertEquals(2, limits.get("2а").intValue());
         assertEquals(5, limits.get("3а").intValue());

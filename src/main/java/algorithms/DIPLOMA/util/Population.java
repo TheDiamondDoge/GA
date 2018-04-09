@@ -1,7 +1,7 @@
 package algorithms.DIPLOMA.util;
 
 import algorithms.DIPLOMA.data.GradeDataObject;
-import algorithms.DIPLOMA.data.LessonLimits;
+import algorithms.DIPLOMA.data.LessonLimitsDaily;
 import algorithms.DIPLOMA.model.*;
 import algorithms.DIPLOMA.util.creators.TeachersCreator;
 
@@ -34,7 +34,7 @@ public class Population {
     }
 
     public List<Genome> createInitialPopulation() {
-        TARGET_SIZE = LessonLimits.getLessonLimit(GradeDataObject.GRADE);
+        TARGET_SIZE = LessonLimitsDaily.getLessonLimit(GradeDataObject.GRADE);
         return Stream.generate(() -> new Genome(getRandomListForGenome()))
                 .parallel()
                 .limit(populationSize)

@@ -1,7 +1,11 @@
 import algorithms.DIPLOMA.TimetableCreationAlgorithm;
 import algorithms.DIPLOMA.data.GradeDataObject;
+import algorithms.DIPLOMA.data.LessonLimitsDaily;
+import algorithms.DIPLOMA.data.LessonLimitsWeekly;
 import algorithms.DIPLOMA.model.Genome;
 import algorithms.DIPLOMA.util.PropertiesExtractor;
+import algorithms.DIPLOMA.util.creators.LimitsCreatorDaily;
+import algorithms.DIPLOMA.util.creators.LimitsCreatorWeekly;
 import algorithms.DIPLOMA.util.creators.TeachersCreator;
 import algorithms.DIPLOMA.util.printers.DayPrinter;
 import algorithms.DIPLOMA.util.read_write.impl.XLSParser;
@@ -17,12 +21,19 @@ public class Main {
         File inputFile = new File(PropertiesExtractor.getInputFilepath());
         File outputFile = new File(PropertiesExtractor.getOutputFilepath());
 
+        XLSParser xlsParserLimits = new XLSParser(new File(PropertiesExtractor.getDaylimitsFilepath()));
+        LimitsCreatorDaily limitsCreatorDaily = new LimitsCreatorDaily(xlsParserLimits.parse());
+        LessonLimitsDaily.setLessonLimits(limitsCreatorDaily.createLimitsFromList());
+
+        xlsParserLimits = new XLSParser(new File(PropertiesExtractor.getWeeklimitsFilepath()));
+        LimitsCreatorWeekly limitsCreatorWeekly = new LimitsCreatorWeekly(xlsParserLimits.parse());
+        LessonLimitsWeekly.setLessonLimitsWeekly(limitsCreatorWeekly.createLimitsFromList());
+
         XLSParser xlsParser = new XLSParser(inputFile);
         ArrayList<String> parsedXLSStrings = xlsParser.parse();
         TeachersCreator teachersCreator = new TeachersCreator(parsedXLSStrings);
         teachersCreator.createTeachers();
         List<String> grades = teachersCreator.getAllGradesFromXls();
-
 
         TimetableCreationAlgorithm timetableCreationAlgorithm = new TimetableCreationAlgorithm();
         Map<Integer, ArrayList<Genome>> timetable = new HashMap<>();
