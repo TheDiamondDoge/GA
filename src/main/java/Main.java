@@ -48,8 +48,7 @@ public class Main {
                 TimetableCreationAlgorithm.setGradesCreated(0);
                 dayPrinter.printDayOfTheWeek(x);
                 timetableCreationAlgorithm.initTeachersPool(x);
-                //TODO need to migrate map from TIMETABLECREATIONALGO to here! TRUST ME!
-                //TODO limit amount of lessons per day by grades
+
                 for (String grade : grades) {
                     GradeDataObject.GRADE = grade;
                     temp.add(timetableCreationAlgorithm.start());

@@ -3,7 +3,6 @@ package algorithms.DIPLOMA.model;
 
 public class Teacher {
     //TODO Rewrite unit tests using MOCK
-    //TODO Map<Grade, Map<Subject, Amount>. New class that parses xlsx with learning plan to this map.
     //TODO Think about how to implement that
     //TODO Make writer for another sheet
     //TODO If all work - you are succeeded!

@@ -1,11 +1,16 @@
 package algorithms.DIPLOMA.model;
 
 import algorithms.DIPLOMA.data.GradeDataObject;
+import algorithms.DIPLOMA.data.LessonLimitsWeekly;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Genome implements Comparable<Genome>{
+    //TODO Compare with weekly limits doesn`t work
+    //TODO Write tests!
     private ArrayList<Teacher> day;
     private int fitness;
 
@@ -33,6 +38,7 @@ public class Genome implements Comparable<Genome>{
                 fitness += Math.abs(getIntValueOfGrade(day.get(i).getGrade()) - getIntValueOfGrade(GradeDataObject.GRADE));
             }
         }
+        fitness += weeklyLimitsInfluens();
     }
 
     private int getIntValueOfGrade(String grade){
@@ -41,6 +47,32 @@ public class Genome implements Comparable<Genome>{
             result += Character.getNumericValue(grade.charAt(i));
         }
         return result;
+    }
+
+    private int weeklyLimitsInfluens(){
+        int fitnessShift = 0;
+        Map<String, Integer> limitsForGrade = LessonLimitsWeekly.getGradeWeeklyLimit(GradeDataObject.GRADE);
+        Map<String, Integer> tempMapForCompare = new HashMap<>();
+
+        for (Teacher teacher : day){
+            String subjectName = teacher.getSubjectName();
+            if (!tempMapForCompare.containsKey(subjectName)){
+                tempMapForCompare.put(subjectName, 1);
+            } else {
+                int subjValue = tempMapForCompare.get(subjectName) + 1;
+                tempMapForCompare.put(subjectName, subjValue);
+            }
+        }
+
+        for (String subject : tempMapForCompare.keySet()){
+            int weeklyLimit = limitsForGrade.get(subject);
+            int actual = tempMapForCompare.get(subject);
+
+            if (weeklyLimit < actual)
+                fitnessShift += actual - weeklyLimit;
+        }
+
+        return fitnessShift;
     }
 
     public ArrayList<Teacher> getDay() {

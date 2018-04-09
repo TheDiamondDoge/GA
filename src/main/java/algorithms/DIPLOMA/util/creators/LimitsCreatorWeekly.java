@@ -25,7 +25,7 @@ public class LimitsCreatorWeekly {
             String grade = subjectsLimits[0];
             subjectsLimits = Arrays.copyOfRange(subjectsLimits, 1, subjectsLimits.length);
 
-            for (int j = 1; j < subjectsLimits.length; j++){
+            for (int j = 0; j < subjectsLimits.length; j++){
                 template.put(subjects[j], Integer.parseInt(subjectsLimits[j]));
             }
 
