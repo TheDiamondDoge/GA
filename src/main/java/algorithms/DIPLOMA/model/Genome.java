@@ -11,6 +11,7 @@ import java.util.Map;
 public class Genome implements Comparable<Genome>{
     //TODO Compare with weekly limits doesn`t work
     //TODO Write tests!
+    private Map<String, Integer> lessonOnDay;
     private ArrayList<Teacher> day;
     private int fitness;
 
@@ -44,7 +45,8 @@ public class Genome implements Comparable<Genome>{
     private int getIntValueOfGrade(String grade){
         int result = 0;
         for (int i = 0; i < grade.length(); i++){
-            result += Character.getNumericValue(grade.charAt(i));
+//            result += Character.getNumericValue(grade.charAt(i));
+            result += (int) grade.charAt(i);
         }
         return result;
     }
@@ -52,21 +54,21 @@ public class Genome implements Comparable<Genome>{
     private int weeklyLimitsInfluens(){
         int fitnessShift = 0;
         Map<String, Integer> limitsForGrade = LessonLimitsWeekly.getGradeWeeklyLimit(GradeDataObject.GRADE);
-        Map<String, Integer> tempMapForCompare = new HashMap<>();
+        lessonOnDay = new HashMap<>();
 
         for (Teacher teacher : day){
             String subjectName = teacher.getSubjectName();
-            if (!tempMapForCompare.containsKey(subjectName)){
-                tempMapForCompare.put(subjectName, 1);
+            if (!lessonOnDay.containsKey(subjectName)){
+                lessonOnDay.put(subjectName, 1);
             } else {
-                int subjValue = tempMapForCompare.get(subjectName) + 1;
-                tempMapForCompare.put(subjectName, subjValue);
+                int subjValue = lessonOnDay.get(subjectName) + 1;
+                lessonOnDay.put(subjectName, subjValue);
             }
         }
 
-        for (String subject : tempMapForCompare.keySet()){
+        for (String subject : lessonOnDay.keySet()){
             int weeklyLimit = limitsForGrade.get(subject);
-            int actual = tempMapForCompare.get(subject);
+            int actual = lessonOnDay.get(subject);
 
             if (weeklyLimit < actual)
                 fitnessShift += actual - weeklyLimit;
@@ -96,6 +98,10 @@ public class Genome implements Comparable<Genome>{
         }
 
         return stringBuilder.toString() + " " + fitness;
+    }
+
+    public Map<String, Integer> getLessonOnDay() {
+        return lessonOnDay;
     }
 
     @Override

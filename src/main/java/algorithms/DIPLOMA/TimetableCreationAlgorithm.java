@@ -2,6 +2,7 @@ package algorithms.DIPLOMA;
 
 import algorithms.DIPLOMA.data.GradeDataObject;
 import algorithms.DIPLOMA.model.Genome;
+import algorithms.DIPLOMA.model.Teacher;
 import algorithms.DIPLOMA.util.Population;
 import algorithms.DIPLOMA.util.printers.DayPrinter;
 
@@ -13,7 +14,6 @@ public class TimetableCreationAlgorithm {
     private static int GRADES_CREATED = 0;
 
     private Population pop;
-//    private Map<Integer, ArrayList<Genome>> result;
 
     public void initTeachersPool(int dayOfTheWeek){
         pop = new Population();
@@ -25,9 +25,11 @@ public class TimetableCreationAlgorithm {
         List<Genome> population = pop.createInitialPopulation();
 
         for (int i = 0; i < MAX_ITER; i++) {
+            population.stream().forEach(Genome::calcFitness);
             Collections.sort(population);
 
             if (population.get(0).getFitness() == 0) {
+                //TODO NEED TO DELETE LESSONS FROM WEEKLY LIMIT HERE
                 System.out.print(GradeDataObject.GRADE + " > ");
                 System.out.println(population.get(0));
 
