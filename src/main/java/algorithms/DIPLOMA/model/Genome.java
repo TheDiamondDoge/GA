@@ -42,11 +42,14 @@ public class Genome implements Comparable<Genome>{
         fitness += weeklyLimitsInfluens();
     }
 
+    //TODO THIS IS THE BLOCKING POINT
     private int getIntValueOfGrade(String grade){
         int result = 0;
         for (int i = 0; i < grade.length(); i++){
-//            result += Character.getNumericValue(grade.charAt(i));
-            result += (int) grade.charAt(i);
+            if ( Character.getNumericValue(grade.charAt(i)) == -1)
+                result += (int) grade.charAt(i);
+            else
+                result += Character.getNumericValue(grade.charAt(i));
         }
         return result;
     }

@@ -20,7 +20,7 @@ public class GenomeTest {
 
     @Before
     public void setUp(){
-        //GradeDataObject.GRADE = "5а";
+        GradeDataObject.GRADE = "11а";
         Map<String, Integer> tempMap = new HashMap<>();
 
         tempMap.put("Russian", 1);
@@ -31,13 +31,13 @@ public class GenomeTest {
 
         weeklyLimits = new HashMap<>();
         weeklyLimits.put(GradeDataObject.GRADE, tempMap);
-
+//11а > Георгиева-11а Яковлева-10б Спиридович-11а Платунова-10б Кузьмина-11а Калинина-10б Бирюкова-10б
         day = new ArrayList<>();
-        day.add(new Teacher("name", "Russian", 1, 1, "5б"));
-        day.add(new Teacher("name", "Math", 2, 1,  "6а"));
-        day.add(new Teacher("name", "Chemistry", 3, 1, "6а"));
-        day.add(new Teacher("name", "Phys", 4, 1, "6а"));
-        day.add(new Teacher("name", "Litr", 5, 1, "6а"));
+        day.add(new Teacher("name", "Russian", 1, 1, "11а"));
+        day.add(new Teacher("name", "Math", 2, 1,  "10б"));
+        day.add(new Teacher("name", "Chemistry", 3, 1, "11а"));
+        day.add(new Teacher("name", "Phys", 4, 1, "10б"));
+        day.add(new Teacher("name", "Litr", 5, 1, "10б"));
     }
 
     @Test
