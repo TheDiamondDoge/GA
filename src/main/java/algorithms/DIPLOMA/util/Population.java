@@ -43,7 +43,7 @@ public class Population {
                 .collect(Collectors.toList());
 
         setAmountAvailableTeachersPerLesson();
-        TARGET_SIZE = LessonLimitsDaily.getLessonLimit(GradeDataObject.GRADE);
+        TARGET_SIZE = calcTargetSize();
         return Stream.generate(() -> new Genome(getRandomListForGenome()))
                 .parallel()
                 .limit(populationSize)

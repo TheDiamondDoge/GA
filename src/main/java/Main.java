@@ -55,6 +55,7 @@ public class Main {
                 }
             }
 
+//            temp.stream().forEach(Genome::weeklyLimitsAdjustment);
             timetable.put(x, temp);
         }
 

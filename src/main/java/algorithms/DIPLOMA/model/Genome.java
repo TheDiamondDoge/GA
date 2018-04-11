@@ -36,26 +36,13 @@ public class Genome implements Comparable<Genome>{
             fitness += Math.abs(day.get(i).getLesson() - i - 1);
 
             if (!day.get(i).getGrade().equalsIgnoreCase(GradeDataObject.GRADE)) {
-//                fitness += Math.abs(getIntValueOfGrade(day.get(i).getGrade()) - getIntValueOfGrade(GradeDataObject.GRADE));
                 fitness += Math.abs(day.get(i).getGrade().hashCode() - GradeDataObject.GRADE.hashCode());
             }
         }
-        fitness += weeklyLimitsInfluens();
+        fitness += weeklyLimitsInfluence();
     }
 
-    //TODO THIS IS THE BLOCKING POINT
-    private int getIntValueOfGrade(String grade){
-        int result = 0;
-        for (int i = 0; i < grade.length(); i++){
-            if ( Character.getNumericValue(grade.charAt(i)) == -1)
-                result += (int) grade.charAt(i);
-            else
-                result += Character.getNumericValue(grade.charAt(i));
-        }
-        return result;
-    }
-
-    private int weeklyLimitsInfluens(){
+    private int weeklyLimitsInfluence(){
         int fitnessShift = 0;
         Map<String, Integer> limitsForGrade = LessonLimitsWeekly.getGradeWeeklyLimit(GradeDataObject.GRADE);
         lessonOnDay = new HashMap<>();
@@ -102,6 +89,10 @@ public class Genome implements Comparable<Genome>{
         }
 
         return stringBuilder.toString() + " " + fitness;
+    }
+
+    public void weeklyLimitsAdjustment(){
+        LessonLimitsWeekly.adjustmentFroGrade(lessonOnDay);
     }
 
     public Map<String, Integer> getLessonOnDay() {
