@@ -144,4 +144,8 @@ public class Population {
     public void setPopulationSize(int populationSize) {
         this.populationSize = populationSize;
     }
+
+    public int[] getAvailableTeachersPerLesson() {
+        return availableTeachersPerLesson;
+    }
 }

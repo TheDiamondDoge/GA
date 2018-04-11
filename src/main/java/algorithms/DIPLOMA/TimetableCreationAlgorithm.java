@@ -50,4 +50,8 @@ public class TimetableCreationAlgorithm {
     public static int getGradesCreated() {
         return GRADES_CREATED;
     }
+
+    public int[] getArray(){
+        return pop.getAvailableTeachersPerLesson();
+    }
 }

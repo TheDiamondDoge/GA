@@ -1,6 +1,5 @@
 package algorithms.DIPLOMA.util;
 
-import algorithms.DIPLOMA.data.GradeDataObject;
 import algorithms.DIPLOMA.model.Genome;
 import algorithms.DIPLOMA.model.Teacher;
 import algorithms.DIPLOMA.util.creators.TeachersCreator;
@@ -16,7 +15,7 @@ public class PopulationTest {
     private static Population population;
     private static List<Genome> initialPopulation;
 
-    @BeforeClass
+   /* @BeforeClass
     public static void setUp(){
         createPool();
         population = new Population();
@@ -31,7 +30,7 @@ public class PopulationTest {
         xlsStrings.add("Russian4;7;1;1");
 
         new TeachersCreator(xlsStrings).createTeachers();
-    }
+    }*/
 
     @Test
     public void createInitialPopulation() {
@@ -94,4 +93,5 @@ public class PopulationTest {
 
         assertEquals(sizeOfGenesPoolAfterDelete, initSizeOfGenesPool - 1);
     }
+
 }

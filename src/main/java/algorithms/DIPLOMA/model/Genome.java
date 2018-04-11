@@ -42,7 +42,7 @@ public class Genome implements Comparable<Genome>{
         fitness += weeklyLimitsInfluence();
     }
 
-    private int weeklyLimitsInfluence(){
+    public int weeklyLimitsInfluence(){
         int fitnessShift = 0;
         Map<String, Integer> limitsForGrade = LessonLimitsWeekly.getGradeWeeklyLimit(GradeDataObject.GRADE);
         lessonOnDay = new HashMap<>();
@@ -93,10 +93,6 @@ public class Genome implements Comparable<Genome>{
 
     public void weeklyLimitsAdjustment(){
         LessonLimitsWeekly.adjustmentFroGrade(lessonOnDay);
-    }
-
-    public Map<String, Integer> getLessonOnDay() {
-        return lessonOnDay;
     }
 
     @Override
