@@ -15,8 +15,9 @@ public class Population {
     private static final double SURVIVE_RATE = 0.5;
     private static final double MUTATION_RATE = 0.5;
     private int populationSize = 100;
+    private List<Teacher> DAILY_GENES_POOL;
     private List<Teacher> GENES_POOL;
-    private int[] availableTeachersPerLesson = new int[10];
+    private int[] availableTeachersPerLesson;
     private int TARGET_SIZE = 10;
 
     public Population() {
@@ -24,20 +25,35 @@ public class Population {
 
     public void initPool(int dayOfTheWeek){
         GENES_POOL = TeachersCreator.getTeachersForDay(dayOfTheWeek);
-        setAmountAvailableTeachersPerLesson();
     }
 
     private void setAmountAvailableTeachersPerLesson(){
-        for (Teacher teacher : GENES_POOL){
-            availableTeachersPerLesson[teacher.getLesson()]++;
+        int dailyLessonLimit = LessonLimitsDaily.getLessonLimit(GradeDataObject.GRADE);
+        availableTeachersPerLesson = new int[dailyLessonLimit + 1];
+        for (Teacher teacher : DAILY_GENES_POOL){
+            if (teacher.getLesson() <= dailyLessonLimit) {
+                availableTeachersPerLesson[teacher.getLesson()]++;
+            }
         }
     }
 
     public List<Genome> createInitialPopulation() {
+        DAILY_GENES_POOL = GENES_POOL.stream()
+                .filter((teacher -> teacher.getGrade().equals(GradeDataObject.GRADE)))
+                .collect(Collectors.toList());
+
+        setAmountAvailableTeachersPerLesson();
         TARGET_SIZE = LessonLimitsDaily.getLessonLimit(GradeDataObject.GRADE);
         return Stream.generate(() -> new Genome(getRandomListForGenome()))
                 .parallel()
                 .limit(populationSize)
+                .collect(Collectors.toList());
+    }
+
+    private List<Teacher> getRandomListForGenome(){
+        return Stream.generate(this::getRandomTeacher)
+                .parallel()
+                .limit(TARGET_SIZE)
                 .collect(Collectors.toList());
     }
 
@@ -48,13 +64,6 @@ public class Population {
             }
         }
         return availableTeachersPerLesson.length - 1;
-    }
-
-    private List<Teacher> getRandomListForGenome(){
-        return Stream.generate(this::getRandomTeacher)
-                .parallel()
-                .limit(TARGET_SIZE)
-                .collect(Collectors.toList());
     }
 
     private boolean isThereAnyAvailableTeacher(int lessonNum){
@@ -73,7 +82,7 @@ public class Population {
     }
 
     private Teacher getRandomTeacher(){
-        return GENES_POOL.get((int) (Math.random() * GENES_POOL.size() - 1));
+        return DAILY_GENES_POOL.get((int) (Math.random() * DAILY_GENES_POOL.size() - 1));
     }
 
     //mate
@@ -120,16 +129,16 @@ public class Population {
     }
 
     private void deleteTeacherFromGenesPool(Teacher teacher, int lesson){
-        int beforeSize = GENES_POOL.size();
-        GENES_POOL.removeIf(x -> x.getName().equals(teacher.getName())
+        int beforeSize = DAILY_GENES_POOL.size();
+        DAILY_GENES_POOL.removeIf(x -> x.getName().equals(teacher.getName())
                               && x.getLesson() == teacher.getLesson()
                               && x.getDayOfTheWeek() == teacher.getDayOfTheWeek());
 
-        availableTeachersPerLesson[lesson] =  availableTeachersPerLesson[lesson] - (beforeSize - GENES_POOL.size());
+        availableTeachersPerLesson[lesson] =  availableTeachersPerLesson[lesson] - (beforeSize - DAILY_GENES_POOL.size());
     }
 
     public List<Teacher> getGenesPool() {
-        return GENES_POOL;
+        return DAILY_GENES_POOL;
     }
 
     public void setPopulationSize(int populationSize) {

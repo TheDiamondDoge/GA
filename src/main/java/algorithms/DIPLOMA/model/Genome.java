@@ -36,7 +36,8 @@ public class Genome implements Comparable<Genome>{
             fitness += Math.abs(day.get(i).getLesson() - i - 1);
 
             if (!day.get(i).getGrade().equalsIgnoreCase(GradeDataObject.GRADE)) {
-                fitness += Math.abs(getIntValueOfGrade(day.get(i).getGrade()) - getIntValueOfGrade(GradeDataObject.GRADE));
+//                fitness += Math.abs(getIntValueOfGrade(day.get(i).getGrade()) - getIntValueOfGrade(GradeDataObject.GRADE));
+                fitness += Math.abs(day.get(i).getGrade().hashCode() - GradeDataObject.GRADE.hashCode());
             }
         }
         fitness += weeklyLimitsInfluens();
