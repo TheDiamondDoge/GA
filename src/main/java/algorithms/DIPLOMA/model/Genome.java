@@ -40,7 +40,7 @@ public class Genome implements Comparable<Genome>{
             }
         }
         fitness += weeklyLimitsInfluence();
-        fitness += duplicateLessons();
+        //fitness += duplicateLessons();
     }
 
     private int duplicateLessons(){
@@ -105,7 +105,7 @@ public class Genome implements Comparable<Genome>{
     }
 
     public void weeklyLimitsAdjustment(){
-        LessonLimitsWeekly.adjustmentFroGrade(lessonOnDay);
+        LessonLimitsWeekly.adjustmentFroGrade(lessonOnDay, getDay().get(0).getGrade());
     }
 
     @Override

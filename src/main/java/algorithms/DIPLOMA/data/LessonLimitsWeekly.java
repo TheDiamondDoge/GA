@@ -15,13 +15,13 @@ public class LessonLimitsWeekly {
         return lessonLimitsWeekly.get(grade);
     }
 
-    public static void adjustmentFroGrade(Map<String, Integer> adjustedWeeklyLimit){
-        Map<String, Integer> temp = lessonLimitsWeekly.get(GRADE);
+    public static void adjustmentFroGrade(Map<String, Integer> adjustedWeeklyLimit, String grade){
+        Map<String, Integer> temp = lessonLimitsWeekly.get(grade);
         for (String subject : adjustedWeeklyLimit.keySet()){
             int lessonAmount = adjustedWeeklyLimit.get(subject);
 
             temp.put(subject, temp.get(subject) - lessonAmount);
         }
-        lessonLimitsWeekly.put(GRADE, temp);
+        lessonLimitsWeekly.put(grade, temp);
     }
 }

@@ -51,18 +51,16 @@ public class Main {
 
                 for (String grade : grades) {
                     GradeDataObject.GRADE = grade;
-                    temp.add(timetableCreationAlgorithm.start());
+
+                    Genome genome = timetableCreationAlgorithm.start();
+                    if (genome == null)
+                        break;
+
+                    temp.add(genome);
                 }
             }
-
-//            temp.stream().forEach(Genome::weeklyLimitsAdjustment);
-
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            int[] xx = timetableCreationAlgorithm.getArray();
-            for (int i = 0; i < xx.length; i++){
-                System.out.print(xx[i]);
-            }
-
+            //TODO THINK TWICE!!!!
+            temp.forEach(Genome::weeklyLimitsAdjustment);
             timetable.put(x, temp);
         }
 

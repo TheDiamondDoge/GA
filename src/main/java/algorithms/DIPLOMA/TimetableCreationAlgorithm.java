@@ -29,7 +29,7 @@ public class TimetableCreationAlgorithm {
             Collections.sort(population);
 
             if (population.get(0).getFitness() == 0) {
-                //TODO NEED TO DELETE LESSONS FROM WEEKLY LIMIT HERE
+
                 System.out.print(GradeDataObject.GRADE + " > ");
                 System.out.println(population.get(0));
 
