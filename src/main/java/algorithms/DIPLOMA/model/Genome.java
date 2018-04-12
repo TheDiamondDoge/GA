@@ -40,6 +40,19 @@ public class Genome implements Comparable<Genome>{
             }
         }
         fitness += weeklyLimitsInfluence();
+        fitness += duplicateLessons();
+    }
+
+    private int duplicateLessons(){
+        Map<String, Integer> tempMap = new HashMap<>();
+        for (Teacher t : day){
+            tempMap.put(t.getSubjectName(), 0);
+        }
+
+        if (tempMap.size() == day.size())
+            return 0;
+        else
+            return day.size() - tempMap.size();
     }
 
     public int weeklyLimitsInfluence(){

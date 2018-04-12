@@ -129,12 +129,12 @@ public class Population {
     }
 
     private void deleteTeacherFromGenesPool(Teacher teacher, int lesson){
-        int beforeSize = DAILY_GENES_POOL.size();
-        DAILY_GENES_POOL.removeIf(x -> x.getName().equals(teacher.getName())
+        int beforeSize = GENES_POOL.size();
+        GENES_POOL.removeIf(x -> x.getName().equals(teacher.getName())
                               && x.getLesson() == teacher.getLesson()
                               && x.getDayOfTheWeek() == teacher.getDayOfTheWeek());
 
-        availableTeachersPerLesson[lesson] =  availableTeachersPerLesson[lesson] - (beforeSize - DAILY_GENES_POOL.size());
+        availableTeachersPerLesson[lesson] =  availableTeachersPerLesson[lesson] - (beforeSize - GENES_POOL.size());
     }
 
     public List<Teacher> getGenesPool() {

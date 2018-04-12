@@ -55,7 +55,7 @@ public class Main {
                 }
             }
 
-            temp.stream().forEach(Genome::weeklyLimitsAdjustment);
+//            temp.stream().forEach(Genome::weeklyLimitsAdjustment);
 
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             int[] xx = timetableCreationAlgorithm.getArray();
