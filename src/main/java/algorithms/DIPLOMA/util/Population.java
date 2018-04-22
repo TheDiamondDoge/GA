@@ -37,9 +37,9 @@ public class Population {
         }
     }
 
-    public List<Genome> createInitialPopulation() {
+    public List<Genome> createInitialPopulation(int x) {
         DAILY_GENES_POOL = GENES_POOL.stream()
-                .filter((teacher -> teacher.getGrade().equals(GradeDataObject.GRADE)))
+                .filter((teacher -> teacher.getGrade().equals(GradeDataObject.GRADE) && teacher.getDayOfTheWeek() == x))
                 .collect(Collectors.toList());
 
         setAmountAvailableTeachersPerLesson();

@@ -40,7 +40,7 @@ public class Genome implements Comparable<Genome>{
             }
         }
         fitness += weeklyLimitsInfluence();
-        //fitness += duplicateLessons();
+        fitness += duplicateLessons();
     }
 
     private int duplicateLessons(){

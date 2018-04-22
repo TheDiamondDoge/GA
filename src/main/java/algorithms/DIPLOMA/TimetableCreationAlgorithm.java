@@ -10,7 +10,7 @@ import java.util.*;
 
 public class TimetableCreationAlgorithm {
 
-    private static final double MAX_ITER = 1000;
+    private static final double MAX_ITER = 2000;
     private static int GRADES_CREATED = 0;
 
     private Population pop;
@@ -21,8 +21,8 @@ public class TimetableCreationAlgorithm {
         pop.initPool(dayOfTheWeek);
     }
 
-    public Genome start() {
-        List<Genome> population = pop.createInitialPopulation();
+    public Genome start(int x) {
+        List<Genome> population = pop.createInitialPopulation(x);
 
         for (int i = 0; i < MAX_ITER; i++) {
             population.stream().forEach(Genome::calcFitness);

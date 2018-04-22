@@ -13,7 +13,7 @@ public class PropertiesExtractorTest {
     @Before
     public void setUp(){
         ClassLoader classLoader = getClass().getClassLoader();
-        propertiesFile = new File(classLoader.getResource("testapp.properties").getFile());
+        propertiesFile = new File(classLoader.getResource("testapp.properties").getPath().replaceAll("%20", " "));
         PropertiesExtractor.setPropertiesFile(propertiesFile);
     }
 

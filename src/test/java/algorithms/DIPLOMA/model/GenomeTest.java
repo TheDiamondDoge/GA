@@ -87,4 +87,10 @@ public class GenomeTest {
         day.add(new Teacher("nam4e", "Russian", 2, 1,  "10б"));
         return day;
     }
+
+    @Test
+    public void crap(){
+        String string = "1";
+        System.out.println(Integer.valueOf(string));
+    }
 }

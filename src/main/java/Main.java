@@ -12,6 +12,7 @@ import algorithms.DIPLOMA.util.read_write.impl.XLSParser;
 import algorithms.DIPLOMA.util.read_write.impl.XLSWriter;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Main {
@@ -39,8 +40,12 @@ public class Main {
         Map<Integer, ArrayList<Genome>> timetable = new HashMap<>();
         DayPrinter dayPrinter = new DayPrinter();
 
+        Integer[] q = {1,2,3,4,5,6};
+        List<Integer> w = Arrays.asList(q);
+        Collections.reverse(w);
+
         grades.remove("1f");
-        for (int x = 1; x < 6; x++) {
+        for (int x : w) {
             TimetableCreationAlgorithm.setGradesCreated(0);
             ArrayList<Genome> temp = new ArrayList<>();
             while (TimetableCreationAlgorithm.getGradesCreated() != grades.size()) {
@@ -52,9 +57,9 @@ public class Main {
                 for (String grade : grades) {
                     GradeDataObject.GRADE = grade;
 
-                    Genome genome = timetableCreationAlgorithm.start();
-                    if (genome == null)
-                        break;
+                    Genome genome = timetableCreationAlgorithm.start(x);
+//                    if (genome == null)
+//                        break;
 
                     temp.add(genome);
                 }

@@ -15,7 +15,7 @@ public class XLSParserTest {
     @Before
     public void setUp(){
         ClassLoader classLoader = getClass().getClassLoader();
-        inputFile = new File(classLoader.getResource("read_write/xlsx/inputFile.xlsx").getFile());
+        inputFile = new File(classLoader.getResource("read_write/xlsx/inputFile.xlsx").getPath().replaceAll("%20", " "));
         xlsParser = new XLSParser(inputFile);
     }
 
