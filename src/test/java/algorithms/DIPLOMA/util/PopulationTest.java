@@ -1,9 +1,8 @@
 package algorithms.DIPLOMA.util;
 
-import algorithms.DIPLOMA.model.Genome;
+import algorithms.DIPLOMA.model.Day;
 import algorithms.DIPLOMA.model.Teacher;
 import algorithms.DIPLOMA.util.creators.TeachersCreator;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import static org.junit.Assert.*;
 
 public class PopulationTest {
     private static Population population;
-    private static List<Genome> initialPopulation;
+    private static List<Day> initialPopulation;
 
    /* @BeforeClass
     public static void setUp(){
@@ -56,11 +55,11 @@ public class PopulationTest {
         teachers.add(new Teacher("Russian", "subject",1, 1, "1a"));
         teachers.add(new Teacher("Russian", "subject",1, 1, "1a"));
 
-        Genome genome = new Genome(teachers);
-        Genome mutatedGenome = population.mutateGenome(genome);
+        Day day = new Day(teachers);
+        Day mutatedDay = population.mutateGenome(day);
         String mutatedTeachersName = "";
 
-        for (Teacher teacher : mutatedGenome.getDay()){
+        for (Teacher teacher : mutatedDay.getDay()){
             if (!teacher.getName().equals("Russian")){
                 mutatedTeachersName = teacher.getName();
             }
@@ -72,7 +71,7 @@ public class PopulationTest {
 
     @Test
     public void selectElite() {
-        List<Genome> elitePopulation = population.selectElite(initialPopulation, 1);
+        List<Day> elitePopulation = population.selectElite(initialPopulation, 1);
 
         int expectedSizeOfElitePopulation = 1;
         assertTrue(initialPopulation.size() > 1);
@@ -88,7 +87,7 @@ public class PopulationTest {
         ArrayList<Teacher> firstTeacher = new ArrayList<>();
         firstTeacher.add(teachers.get(0));
 
-        population.deleteGenesFromPool(new Genome(firstTeacher));
+        population.deleteGenesFromPool(new Day(firstTeacher));
         int sizeOfGenesPoolAfterDelete = population.getGenesPool().size();
 
         assertEquals(sizeOfGenesPoolAfterDelete, initSizeOfGenesPool - 1);

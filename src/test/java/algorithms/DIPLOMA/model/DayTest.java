@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
 
-public class GenomeTest {
+public class DayTest {
     private Map<String, Map<String, Integer>> weeklyLimits;
     private ArrayList<Teacher> incorrectDay;
     private ArrayList<Teacher> correctDay;
@@ -42,13 +42,13 @@ public class GenomeTest {
         when(limitsCreatorWeekly.createLimitsFromList()).thenReturn(weeklyLimits);
         LessonLimitsWeekly.setLessonLimitsWeekly(limitsCreatorWeekly.createLimitsFromList());
 
-        Genome notSuitable = new Genome(incorrectDay);
+        Day notSuitable = new Day(incorrectDay);
 
         int expectedFitness = 0;
-        assertNotEquals("Genome do not matches to all criteria",expectedFitness, notSuitable.getFitness());
+        assertNotEquals("Day do not matches to all criteria",expectedFitness, notSuitable.getFitness());
 
-        Genome suitable = new Genome(correctDay);
-        assertEquals("Genome matches to all criteria", expectedFitness, suitable.getFitness());
+        Day suitable = new Day(correctDay);
+        assertEquals("Day matches to all criteria", expectedFitness, suitable.getFitness());
     }
 
     private void initForCalcFitness(){
@@ -73,10 +73,10 @@ public class GenomeTest {
         when(limitsCreatorWeekly.createLimitsFromList()).thenReturn(weeklyLimits);
         LessonLimitsWeekly.setLessonLimitsWeekly(limitsCreatorWeekly.createLimitsFromList());
 
-        Genome genome = new Genome(initForWeeklyLimitsInfluence());
+        Day day = new Day(initForWeeklyLimitsInfluence());
 
         int expectedInfluence = 1;
-        assertEquals("Weekly limit for subject Russian exceeded by 1", expectedInfluence, genome.weeklyLimitsInfluence());
+        assertEquals("Weekly limit for subject Russian exceeded by 1", expectedInfluence, day.weeklyLimitsInfluence());
 
     }
 

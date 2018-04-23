@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Genome implements Comparable<Genome>{
+public class Day implements Comparable<Day>{
     //TODO Compare with weekly limits doesn`t work
     //TODO Write tests!
     private Map<String, Integer> lessonOnDay;
@@ -16,18 +16,18 @@ public class Genome implements Comparable<Genome>{
     private int fitness;
 
 
-    public Genome(List<Teacher> day) {
+    public Day(List<Teacher> day) {
         this.setDay(new ArrayList<>(day));
         this.calcFitness();
     }
 
-    public Genome(Genome genome){
-        this.copy(genome);
+    public Day(Day day){
+        this.copy(day);
         this.calcFitness();
     }
 
-    private void copy(Genome genome){
-        this.setDay(new ArrayList<>(genome.getDay()));
+    private void copy(Day day){
+        this.setDay(new ArrayList<>(day.getDay()));
     }
 
     public void calcFitness(){
@@ -35,7 +35,7 @@ public class Genome implements Comparable<Genome>{
         for(int i = 0; i < day.size(); i++){
             fitness += Math.abs(day.get(i).getLesson() - i - 1);
 
-            if (!day.get(i).getGrade().equalsIgnoreCase(GradeDataObject.GRADE)) {
+            if (!isCorrectGrade(i)) {
                 fitness += Math.abs(day.get(i).getGrade().hashCode() - GradeDataObject.GRADE.hashCode());
             }
         }
@@ -43,16 +43,8 @@ public class Genome implements Comparable<Genome>{
         fitness += duplicateLessons();
     }
 
-    private int duplicateLessons(){
-        Map<String, Integer> tempMap = new HashMap<>();
-        for (Teacher t : day){
-            tempMap.put(t.getSubjectName(), 0);
-        }
-
-        if (tempMap.size() == day.size())
-            return 0;
-        else
-            return day.size() - tempMap.size();
+    private boolean isCorrectGrade(int lessonNumber){
+        return day.get(lessonNumber).getGrade().equalsIgnoreCase(GradeDataObject.GRADE);
     }
 
     public int weeklyLimitsInfluence(){
@@ -79,6 +71,18 @@ public class Genome implements Comparable<Genome>{
         }
 
         return fitnessShift;
+    }
+
+    private int duplicateLessons(){
+        Map<String, Integer> tempMap = new HashMap<>();
+        for (Teacher t : day){
+            tempMap.put(t.getSubjectName(), 0);
+        }
+
+        if (tempMap.size() == day.size())
+            return 0;
+        else
+            return day.size() - tempMap.size();
     }
 
     public ArrayList<Teacher> getDay() {
@@ -109,7 +113,7 @@ public class Genome implements Comparable<Genome>{
     }
 
     @Override
-    public int compareTo(Genome o) {
+    public int compareTo(Day o) {
         return fitness - o.fitness;
     }
 }

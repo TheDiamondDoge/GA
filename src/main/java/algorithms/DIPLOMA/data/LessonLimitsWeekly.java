@@ -2,8 +2,6 @@ package algorithms.DIPLOMA.data;
 
 import java.util.Map;
 
-import static algorithms.DIPLOMA.data.GradeDataObject.*;
-
 public class LessonLimitsWeekly {
     private static Map<String, Map<String, Integer>> lessonLimitsWeekly;
 

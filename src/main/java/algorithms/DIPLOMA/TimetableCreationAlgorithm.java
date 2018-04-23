@@ -1,10 +1,8 @@
 package algorithms.DIPLOMA;
 
 import algorithms.DIPLOMA.data.GradeDataObject;
-import algorithms.DIPLOMA.model.Genome;
-import algorithms.DIPLOMA.model.Teacher;
+import algorithms.DIPLOMA.model.Day;
 import algorithms.DIPLOMA.util.Population;
-import algorithms.DIPLOMA.util.printers.DayPrinter;
 
 import java.util.*;
 
@@ -21,11 +19,11 @@ public class TimetableCreationAlgorithm {
         pop.initPool(dayOfTheWeek);
     }
 
-    public Genome start(int x) {
-        List<Genome> population = pop.createInitialPopulation(x);
+    public Day start(int x) {
+        List<Day> population = pop.createInitialPopulation(x);
 
         for (int i = 0; i < MAX_ITER; i++) {
-            population.stream().forEach(Genome::calcFitness);
+            population.stream().forEach(Day::calcFitness);
             Collections.sort(population);
 
             if (population.get(0).getFitness() == 0) {

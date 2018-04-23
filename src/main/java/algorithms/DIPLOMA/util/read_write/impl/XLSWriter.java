@@ -1,8 +1,6 @@
 package algorithms.DIPLOMA.util.read_write.impl;
 
 import algorithms.DIPLOMA.model.*;
-import algorithms.DIPLOMA.util.CustomComparator;
-import algorithms.DIPLOMA.util.PropertiesExtractor;
 import algorithms.DIPLOMA.util.printers.DayPrinter;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
@@ -21,7 +19,7 @@ public class XLSWriter {
         this.outputXLS = outputXLS;
     }
 
-    public void write(Map<Integer, ArrayList<Genome>> data) {
+    public void write(Map<Integer, ArrayList<Day>> data) {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet gradesSheet = workbook.createSheet("Классы");
         XSSFSheet gradesSheet1 = workbook.createSheet("Классы1");
@@ -40,7 +38,7 @@ public class XLSWriter {
         }
     }
 
-    private void sheetForGrades(XSSFSheet sheet, Map<Integer, ArrayList<Genome>> data){
+    private void sheetForGrades(XSSFSheet sheet, Map<Integer, ArrayList<Day>> data){
         int rowNum = 0;
         ArrayList<Integer> days = new ArrayList<>(data.keySet());
         Collections.sort(days);
@@ -51,13 +49,13 @@ public class XLSWriter {
             cell.setCellValue(DayPrinter.dayOfTheWeekFromNumber(i));
             row = sheet.createRow(rowNum++);
 
-            ArrayList<Genome> genomes = data.get(i);
+            ArrayList<Day> genomes = data.get(i);
 
-            for (Genome genome : genomes){
+            for (Day day : genomes){
                 int colNum = 0;
                 cell = row.createCell(colNum++);
-                cell.setCellValue(genome.getDay().get(0).getGrade());
-                for (Teacher teacher : genome.getDay()){
+                cell.setCellValue(day.getDay().get(0).getGrade());
+                for (Teacher teacher : day.getDay()){
                     cell = row.createCell(colNum++);
                     cell.setCellValue(teacher.toString());
                 }
@@ -70,7 +68,7 @@ public class XLSWriter {
     private XSSFSheet sheetForTeachers(){
         return null;
     }
-    private void grades(XSSFSheet sheet, Map<Integer, ArrayList<Genome>> data){
+    private void grades(XSSFSheet sheet, Map<Integer, ArrayList<Day>> data){
         int rowNum = 0;
         ArrayList<Integer> days = new ArrayList<>(data.keySet());
         Collections.sort(days);
@@ -81,13 +79,13 @@ public class XLSWriter {
             cell.setCellValue(DayPrinter.dayOfTheWeekFromNumber(i));
             row = sheet.createRow(rowNum++);
 
-            ArrayList<Genome> genomes = data.get(i);
+            ArrayList<Day> genomes = data.get(i);
 
-            for (Genome genome : genomes){
+            for (Day day : genomes){
                 int colNum = 0;
                 cell = row.createCell(colNum++);
-                cell.setCellValue(genome.getDay().get(0).getGrade());
-                for (Teacher teacher : genome.getDay()){
+                cell.setCellValue(day.getDay().get(0).getGrade());
+                for (Teacher teacher : day.getDay()){
                     cell = row.createCell(colNum++);
                     cell.setCellValue(teacher.getSubjectName());
                 }

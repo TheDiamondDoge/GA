@@ -2,7 +2,7 @@ import algorithms.DIPLOMA.TimetableCreationAlgorithm;
 import algorithms.DIPLOMA.data.GradeDataObject;
 import algorithms.DIPLOMA.data.LessonLimitsDaily;
 import algorithms.DIPLOMA.data.LessonLimitsWeekly;
-import algorithms.DIPLOMA.model.Genome;
+import algorithms.DIPLOMA.model.Day;
 import algorithms.DIPLOMA.util.PropertiesExtractor;
 import algorithms.DIPLOMA.util.creators.LimitsCreatorDaily;
 import algorithms.DIPLOMA.util.creators.LimitsCreatorWeekly;
@@ -12,7 +12,6 @@ import algorithms.DIPLOMA.util.read_write.impl.XLSParser;
 import algorithms.DIPLOMA.util.read_write.impl.XLSWriter;
 
 import java.io.File;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Main {
@@ -37,17 +36,17 @@ public class Main {
         List<String> grades = teachersCreator.getAllGradesFromXls();
 
         TimetableCreationAlgorithm timetableCreationAlgorithm = new TimetableCreationAlgorithm();
-        Map<Integer, ArrayList<Genome>> timetable = new HashMap<>();
+        Map<Integer, ArrayList<Day>> timetable = new HashMap<>();
         DayPrinter dayPrinter = new DayPrinter();
 
         Integer[] q = {1,2,3,4,5,6};
         List<Integer> w = Arrays.asList(q);
-        Collections.reverse(w);
+        //Collections.reverse(w);
 
         grades.remove("1f");
         for (int x : w) {
             TimetableCreationAlgorithm.setGradesCreated(0);
-            ArrayList<Genome> temp = new ArrayList<>();
+            ArrayList<Day> temp = new ArrayList<>();
             while (TimetableCreationAlgorithm.getGradesCreated() != grades.size()) {
                 temp = new ArrayList<>();
                 TimetableCreationAlgorithm.setGradesCreated(0);
@@ -57,15 +56,15 @@ public class Main {
                 for (String grade : grades) {
                     GradeDataObject.GRADE = grade;
 
-                    Genome genome = timetableCreationAlgorithm.start(x);
-//                    if (genome == null)
+                    Day day = timetableCreationAlgorithm.start(x);
+//                    if (day == null)
 //                        break;
 
-                    temp.add(genome);
+                    temp.add(day);
                 }
             }
             //TODO THINK TWICE!!!!
-            temp.forEach(Genome::weeklyLimitsAdjustment);
+            temp.forEach(Day::weeklyLimitsAdjustment);
             timetable.put(x, temp);
         }
 
