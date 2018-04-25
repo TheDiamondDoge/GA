@@ -63,7 +63,7 @@ public class Main {
                     temp.add(day);
                 }
             }
-            //TODO THINK TWICE!!!!
+
             temp.forEach(Day::weeklyLimitsAdjustment);
             timetable.put(x, temp);
         }

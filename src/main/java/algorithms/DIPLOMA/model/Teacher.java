@@ -3,9 +3,7 @@ package algorithms.DIPLOMA.model;
 
 public class Teacher {
     //TODO Rewrite unit tests using MOCK
-    //TODO Think about how to implement that
     //TODO Make writer for another sheet
-    //TODO If all work - you are succeeded!
     private String name;
     private int lesson;
     private int dayOfTheWeek;

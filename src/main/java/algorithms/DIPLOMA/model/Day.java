@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Day implements Comparable<Day>{
-    //TODO Compare with weekly limits doesn`t work
     //TODO Write tests!
     private Map<String, Integer> lessonOnDay;
     private ArrayList<Teacher> day;
@@ -32,13 +31,24 @@ public class Day implements Comparable<Day>{
 
     public void calcFitness(){
         fitness = 0;
+        lessonOnDay = new HashMap<>();
+
         for(int i = 0; i < day.size(); i++){
             fitness += Math.abs(day.get(i).getLesson() - i - 1);
 
             if (!isCorrectGrade(i)) {
                 fitness += Math.abs(day.get(i).getGrade().hashCode() - GradeDataObject.GRADE.hashCode());
             }
+
+            String subjectName = day.get(i).getSubjectName();
+            if (!lessonOnDay.containsKey(subjectName)){
+                lessonOnDay.put(subjectName, 1);
+            } else {
+                int subjValue = lessonOnDay.get(subjectName) + 1;
+                lessonOnDay.put(subjectName, subjValue);
+            }
         }
+
         fitness += weeklyLimitsInfluence();
         fitness += duplicateLessons();
     }
@@ -50,17 +60,6 @@ public class Day implements Comparable<Day>{
     public int weeklyLimitsInfluence(){
         int fitnessShift = 0;
         Map<String, Integer> limitsForGrade = LessonLimitsWeekly.getGradeWeeklyLimit(GradeDataObject.GRADE);
-        lessonOnDay = new HashMap<>();
-
-        for (Teacher teacher : day){
-            String subjectName = teacher.getSubjectName();
-            if (!lessonOnDay.containsKey(subjectName)){
-                lessonOnDay.put(subjectName, 1);
-            } else {
-                int subjValue = lessonOnDay.get(subjectName) + 1;
-                lessonOnDay.put(subjectName, subjValue);
-            }
-        }
 
         for (String subject : lessonOnDay.keySet()){
             int weeklyLimit = limitsForGrade.get(subject);
@@ -74,15 +73,7 @@ public class Day implements Comparable<Day>{
     }
 
     private int duplicateLessons(){
-        Map<String, Integer> tempMap = new HashMap<>();
-        for (Teacher t : day){
-            tempMap.put(t.getSubjectName(), 0);
-        }
-
-        if (tempMap.size() == day.size())
-            return 0;
-        else
-            return day.size() - tempMap.size();
+        return lessonOnDay.size() == day.size() ? 0 : day.size() - lessonOnDay.size();
     }
 
     public ArrayList<Teacher> getDay() {
