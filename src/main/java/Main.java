@@ -1,4 +1,4 @@
-import algorithms.DIPLOMA.TimetableCreationAlgorithm;
+import algorithms.DIPLOMA.DailyTimetableCreator;
 import algorithms.DIPLOMA.data.GradeDataObject;
 import algorithms.DIPLOMA.data.LessonLimitsDaily;
 import algorithms.DIPLOMA.data.LessonLimitsWeekly;
@@ -21,7 +21,8 @@ public class Main {
         File inputFile = new File(PropertiesExtractor.getInputFilepath());
         File outputFile = new File(PropertiesExtractor.getOutputFilepath());
 
-        XLSParser xlsParserLimits = new XLSParser(new File(PropertiesExtractor.getDaylimitsFilepath()));
+        XLSParser xlsParserLimits = new XLSParser(
+                new File(PropertiesExtractor.getDaylimitsFilepath()));
         LimitsCreatorDaily limitsCreatorDaily = new LimitsCreatorDaily(xlsParserLimits.parse());
         LessonLimitsDaily.setLessonLimits(limitsCreatorDaily.createLimitsFromList());
 
@@ -34,29 +35,28 @@ public class Main {
         TeachersCreator teachersCreator = new TeachersCreator(parsedXLSStrings);
         teachersCreator.createTeachers();
         List<String> grades = teachersCreator.getAllGradesFromXls();
+        grades.remove("1f");
 
-        TimetableCreationAlgorithm timetableCreationAlgorithm = new TimetableCreationAlgorithm();
+        DailyTimetableCreator dailyTimetableCreator = new DailyTimetableCreator();
         Map<Integer, ArrayList<Day>> timetable = new HashMap<>();
         DayPrinter dayPrinter = new DayPrinter();
 
-        Integer[] q = {1,2,3,4,5,6};
-        List<Integer> w = Arrays.asList(q);
-        //Collections.reverse(w);
+        Integer[] d = {1,2,3,4,5,6};
+        List<Integer> days = Arrays.asList(d);
 
-        grades.remove("1f");
-        for (int x : w) {
-            TimetableCreationAlgorithm.setGradesCreated(0);
+        for (int x : days) {
+            DailyTimetableCreator.setGradesCreated(0);
             ArrayList<Day> temp = new ArrayList<>();
-            while (TimetableCreationAlgorithm.getGradesCreated() != grades.size()) {
+            while (DailyTimetableCreator.getGradesCreated() != grades.size()) {
                 temp = new ArrayList<>();
-                TimetableCreationAlgorithm.setGradesCreated(0);
+                DailyTimetableCreator.setGradesCreated(0);
                 dayPrinter.printDayOfTheWeek(x);
-                timetableCreationAlgorithm.initTeachersPool(x);
+                dailyTimetableCreator.initTeachersPool(x);
 
                 for (String grade : grades) {
                     GradeDataObject.GRADE = grade;
 
-                    Day day = timetableCreationAlgorithm.start(x);
+                    Day day = dailyTimetableCreator.start(x);
 //                    if (day == null)
 //                        break;
 

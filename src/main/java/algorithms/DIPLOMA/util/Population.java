@@ -1,6 +1,5 @@
 package algorithms.DIPLOMA.util;
 
-import algorithms.DIPLOMA.data.GradeDataObject;
 import algorithms.DIPLOMA.data.LessonLimitsDaily;
 import algorithms.DIPLOMA.model.*;
 import algorithms.DIPLOMA.util.creators.TeachersCreator;
@@ -10,6 +9,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static algorithms.DIPLOMA.data.GradeDataObject.*;
+
 public class Population {
     private static final double ELITE_RATE = 0.1;
     private static final double SURVIVE_RATE = 0.5;
@@ -18,7 +19,7 @@ public class Population {
     private List<Teacher> DAILY_GENES_POOL;
     private List<Teacher> GENES_POOL;
     private int[] availableTeachersPerLesson;
-    private int TARGET_SIZE = 10;
+    private int lessonsForClassMax = 10;
 
     public Population() {
     }
@@ -28,7 +29,7 @@ public class Population {
     }
 
     private void setAmountAvailableTeachersPerLesson(){
-        int dailyLessonLimit = LessonLimitsDaily.getLessonLimit(GradeDataObject.GRADE);
+        int dailyLessonLimit = LessonLimitsDaily.getLessonLimit(GRADE);
         availableTeachersPerLesson = new int[dailyLessonLimit + 1];
         for (Teacher teacher : DAILY_GENES_POOL){
             if (teacher.getLesson() <= dailyLessonLimit) {
@@ -39,11 +40,12 @@ public class Population {
 
     public List<Day> createInitialPopulation(int x) {
         DAILY_GENES_POOL = GENES_POOL.stream()
-                .filter((teacher -> teacher.getGrade().equals(GradeDataObject.GRADE) && teacher.getDayOfTheWeek() == x))
+                .parallel()
+                .filter((teacher -> teacher.getGrade().equals(GRADE) && teacher.getDayOfTheWeek() == x))
                 .collect(Collectors.toList());
 
         setAmountAvailableTeachersPerLesson();
-        TARGET_SIZE = calcTargetSize();
+        lessonsForClassMax = calcTargetSize();
         return Stream.generate(() -> new Day(getRandomListForGenome()))
                 .parallel()
                 .limit(populationSize)
@@ -53,7 +55,7 @@ public class Population {
     private List<Teacher> getRandomListForGenome(){
         return Stream.generate(this::getRandomTeacher)
                 .parallel()
-                .limit(TARGET_SIZE)
+                .limit(lessonsForClassMax)
                 .collect(Collectors.toList());
     }
 
@@ -71,12 +73,11 @@ public class Population {
     }
 
     public Day mutateGenome(Day day) {
-        int extractionPosition = (int) (Math.random() * TARGET_SIZE);
+        int extractionPosition = (int) (Math.random() * lessonsForClassMax);
         Teacher delta = getRandomTeacher();
 
         ArrayList<Teacher> teachers = day.getDay();
         teachers.set(extractionPosition, delta);
-        day.calcFitness();
 
         return new Day(teachers);
     }
@@ -93,7 +94,7 @@ public class Population {
         for (int i = eliteSize; i < populationSize; i++) {
             int firstRandomGenome = (int) (Math.random() * populationSize * SURVIVE_RATE);
             int secondRandomGenome = (int) (Math.random() * populationSize * SURVIVE_RATE);
-            int pointOfMerge = (int) (Math.random() * TARGET_SIZE);
+            int pointOfMerge = (int) (Math.random() * lessonsForClassMax);
 
             Day day = mergeNewGenome(population.get(firstRandomGenome),
                     population.get(secondRandomGenome), pointOfMerge);
