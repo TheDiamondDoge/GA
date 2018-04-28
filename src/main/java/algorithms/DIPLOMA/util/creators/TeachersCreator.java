@@ -2,7 +2,7 @@ package algorithms.DIPLOMA.util.creators;
 
 import algorithms.DIPLOMA.data.GradeDataObject;
 import algorithms.DIPLOMA.model.Teacher;
-import algorithms.DIPLOMA.util.CustomComparator;
+import algorithms.DIPLOMA.util.DataTransform;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -44,7 +44,7 @@ public class TeachersCreator {
             }
         }
         allGradesFromXls.addAll(gradesSetTemp);
-        allGradesFromXls.sort(CustomComparator.getComparator());
+        allGradesFromXls.sort(DataTransform.getComparator());
 
         if (allGradesFromXls.contains(""))
             allGradesFromXls.remove("");
