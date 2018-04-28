@@ -25,7 +25,7 @@ public class TeachersCreatorTest {
         teachersCreator.createTeachers();
 
         int expectedAmountOfTeachers = 6;
-        assertEquals(expectedAmountOfTeachers, teachersCreator.getTeachers().size());
+        assertEquals(expectedAmountOfTeachers, teachersCreator.getTEACHERS().size());
     }
 
     @Test

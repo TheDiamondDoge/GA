@@ -38,10 +38,10 @@ public class Main {
         grades.remove("1f");
 
         DailyTimetableCreator dailyTimetableCreator = new DailyTimetableCreator();
-        Map<Integer, ArrayList<Day>> timetable = new HashMap<>();
+        Map<Integer, ArrayList<Day>> gradesTimetable = new HashMap<>();
         DayPrinter dayPrinter = new DayPrinter();
 
-        Integer[] d = {1,2,3,4,5,6};
+        Integer[] d = {1,2,3,4,5};
         List<Integer> days = Arrays.asList(d);
 
         for (int x : days) {
@@ -55,20 +55,16 @@ public class Main {
 
                 for (String grade : grades) {
                     GradeDataObject.GRADE = grade;
-
                     Day day = dailyTimetableCreator.start(x);
-//                    if (day == null)
-//                        break;
-
                     temp.add(day);
                 }
             }
 
             temp.forEach(Day::weeklyLimitsAdjustment);
-            timetable.put(x, temp);
+            gradesTimetable.put(x, temp);
         }
 
         XLSWriter xlsWriter = new XLSWriter(outputFile);
-        xlsWriter.write(timetable);
+        xlsWriter.write(gradesTimetable);
     }
 }

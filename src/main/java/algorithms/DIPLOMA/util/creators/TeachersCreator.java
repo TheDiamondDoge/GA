@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class TeachersCreator {
-    private static List<Teacher> teachers;
+    private static List<Teacher> TEACHERS;
     private List<String> parsedXLSStrings;
     private List<String> allGradesFromXls;
 
@@ -24,7 +24,7 @@ public class TeachersCreator {
         ArrayList<Integer> lessons;
         Set<String> gradesSetTemp = new HashSet<>();
         allGradesFromXls = new ArrayList<>();
-        teachers = new ArrayList<>();
+        TEACHERS = new ArrayList<>();
 
         for (String str : parsedXLSStrings) {
             String[] fieldsOfObject = str.split(";");
@@ -37,7 +37,7 @@ public class TeachersCreator {
                         GradeDataObject.GRADE = g;
                         gradesSetTemp.add(g);
                         int dayOfTheWeek = Character.getNumericValue(fieldsOfObject[3].charAt(0));
-                        teachers.add(new Teacher(fieldsOfObject[0], fieldsOfObject[1] , i,
+                        TEACHERS.add(new Teacher(fieldsOfObject[0], fieldsOfObject[1] , i,
                                 dayOfTheWeek, g));
                     }
                 }
@@ -105,21 +105,21 @@ public class TeachersCreator {
     }
 
     private static void addPlaceholderdsForCorrectRandomWorking(){
-        teachers.add(new Teacher("placeholder", "placeholder", 1, 1,"1f"));
-        teachers.add(new Teacher("placeholder", "placeholder", 1, 2,"1f"));
-        teachers.add(new Teacher("placeholder", "placeholder", 1, 3,"1f"));
-        teachers.add(new Teacher("placeholder", "placeholder", 1, 4,"1f"));
-        teachers.add(new Teacher("placeholder", "placeholder", 1, 5,"1f"));
-        teachers.add(new Teacher("placeholder", "placeholder", 1, 6,"1f"));
-        teachers.add(new Teacher("placeholder", "placeholder", 1, 7,"1f"));
+        TEACHERS.add(new Teacher("placeholder", "placeholder", 1, 1,"1f"));
+        TEACHERS.add(new Teacher("placeholder", "placeholder", 1, 2,"1f"));
+        TEACHERS.add(new Teacher("placeholder", "placeholder", 1, 3,"1f"));
+        TEACHERS.add(new Teacher("placeholder", "placeholder", 1, 4,"1f"));
+        TEACHERS.add(new Teacher("placeholder", "placeholder", 1, 5,"1f"));
+        TEACHERS.add(new Teacher("placeholder", "placeholder", 1, 6,"1f"));
+        TEACHERS.add(new Teacher("placeholder", "placeholder", 1, 7,"1f"));
     }
 
     public static List<Teacher> getTeachersForDay(int dayOfTheWeek) {
-        return teachers.stream().filter(teacher -> teacher.getDayOfTheWeek() == dayOfTheWeek).collect(Collectors.toList());
+        return TEACHERS.stream().filter(teacher -> teacher.getDayOfTheWeek() == dayOfTheWeek).collect(Collectors.toList());
     }
 
-    public static List<Teacher> getTeachers() {
-        return teachers;
+    public static List<Teacher> getTEACHERS() {
+        return TEACHERS;
     }
 
     public List<String> getAllGradesFromXls() {

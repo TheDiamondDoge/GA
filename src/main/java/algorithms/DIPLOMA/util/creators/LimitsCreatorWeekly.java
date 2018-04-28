@@ -4,14 +4,13 @@ import java.util.*;
 
 public class LimitsCreatorWeekly {
     private List<String> parsedLimits;
-    private Map<String, Map<String, Integer>> limits;
 
     public LimitsCreatorWeekly(List<String> parsedLimits) {
         this.parsedLimits = parsedLimits;
     }
 
     public Map<String, Map<String, Integer>> createLimitsFromList(){
-        limits = new HashMap<>();
+        Map<String, Map<String, Integer>>limits = new HashMap<>();
         Map<String, Integer> template = new HashMap<>();
 
         String[] subjects = parsedLimits.get(0).split(";");

@@ -22,11 +22,9 @@ public class XLSWriter {
     public void write(Map<Integer, ArrayList<Day>> data) {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet gradesSheet = workbook.createSheet("Классы");
-        XSSFSheet gradesSheet1 = workbook.createSheet("Классы1");
         XSSFSheet teachersSheet = workbook.createSheet("Учителя");
         sheetForGrades(gradesSheet, data);
-        grades(gradesSheet1, data);
-
+        sheetForTeachers(teachersSheet, data);
         try{
             FileOutputStream outputStream = new FileOutputStream(outputXLS);
             workbook.write(outputStream);
@@ -65,32 +63,8 @@ public class XLSWriter {
     }
 
 
-    private XSSFSheet sheetForTeachers(){
+    private XSSFSheet sheetForTeachers(XSSFSheet sheet, Map<Integer, ArrayList<Day>> data){
         return null;
     }
-    private void grades(XSSFSheet sheet, Map<Integer, ArrayList<Day>> data){
-        int rowNum = 0;
-        ArrayList<Integer> days = new ArrayList<>(data.keySet());
-        Collections.sort(days);
 
-        for (Integer i : days){
-            Row row = sheet.createRow(rowNum++);
-            Cell cell = row.createCell(0);
-            cell.setCellValue(DayPrinter.dayOfTheWeekFromNumber(i));
-            row = sheet.createRow(rowNum++);
-
-            ArrayList<Day> genomes = data.get(i);
-
-            for (Day day : genomes){
-                int colNum = 0;
-                cell = row.createCell(colNum++);
-                cell.setCellValue(day.getDay().get(0).getGrade());
-                for (Teacher teacher : day.getDay()){
-                    cell = row.createCell(colNum++);
-                    cell.setCellValue(teacher.getSubjectName());
-                }
-                row = sheet.createRow(rowNum++);
-            }
-        }
-    }
 }
