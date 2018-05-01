@@ -57,7 +57,8 @@ public class XLSWriter {
                     cell.setCellValue(day.getDay().get(0).getGrade());
                     for (Teacher teacher : day.getDay()) {
                         cell = row.createCell(colNum++);
-                        cell.setCellValue(teacher.toString());
+                        cell.setCellValue(teacher.getSubjectName());
+//                        cell.setCellValue(teacher.toString());
                     }
                     row = sheet.createRow(rowNum++);
                 }
