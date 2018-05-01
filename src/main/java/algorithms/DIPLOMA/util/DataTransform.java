@@ -2,11 +2,9 @@ package algorithms.DIPLOMA.util;
 
 import algorithms.DIPLOMA.model.Day;
 import algorithms.DIPLOMA.model.Teacher;
+import algorithms.DIPLOMA.util.creators.TeachersCreator;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class DataTransform {
     public static Comparator<String> getComparator(){
@@ -28,15 +26,11 @@ public class DataTransform {
         String[] grades;
 
         for (int i : data.keySet()){
+            initMap(tempSchedule);
             for (Day day : data.get(i)){
                 for (Teacher teacher : day.getDay()){
                     String teachersName = teacher.getName();
-
-                    if (tempSchedule.containsKey(teachersName)){
-                        grades = tempSchedule.get(teachersName);
-                    } else {
-                        grades = new String[10];
-                    }
+                    grades = tempSchedule.get(teachersName);
                     grades[teacher.getLesson()] = teacher.getGrade() + teacher.getSubjectName();
                     tempSchedule.put(teachersName, grades);
                 }
@@ -45,5 +39,12 @@ public class DataTransform {
             tempSchedule = new HashMap<>();
         }
         return teachersSchedule;
+    }
+
+    private static void initMap(Map<String, String[]> map){
+        List<String> teachers = TeachersCreator.getTeacherNames();
+        for (String name : teachers){
+            map.put(name, new String[10]);
+        }
     }
 }

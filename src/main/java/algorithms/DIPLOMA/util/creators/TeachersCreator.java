@@ -11,6 +11,7 @@ public class TeachersCreator {
     private static List<Teacher> TEACHERS;
     private List<String> parsedXLSStrings;
     private List<String> allGradesFromXls;
+    private static List<String> TEACHER_NAMES;
 
 
     public TeachersCreator() {
@@ -31,6 +32,7 @@ public class TeachersCreator {
             if (fieldsOfObject.length > 0) {
                 lessons = getNumbersFromString(fieldsOfObject[2]);
                 List<String> grades = getGradesFromString(fieldsOfObject[4]);
+                memoTeacherName(fieldsOfObject[0]);
 
                 for (int i : lessons) {
                     for (String g : grades) {
@@ -104,6 +106,15 @@ public class TeachersCreator {
         return result;
     }
 
+    private void memoTeacherName(String name){
+        if (TEACHER_NAMES == null)
+            TEACHER_NAMES = new ArrayList<>();
+
+        if (!TEACHER_NAMES.contains(name)){
+            TEACHER_NAMES.add(name);
+        }
+    }
+
     private static void addPlaceholderdsForCorrectRandomWorking(){
         TEACHERS.add(new Teacher("placeholder", "placeholder", 1, 1,"1f"));
         TEACHERS.add(new Teacher("placeholder", "placeholder", 1, 2,"1f"));
@@ -125,4 +136,6 @@ public class TeachersCreator {
     public List<String> getAllGradesFromXls() {
         return allGradesFromXls;
     }
+
+    public static List<String> getTeacherNames(){ return TEACHER_NAMES;}
 }
