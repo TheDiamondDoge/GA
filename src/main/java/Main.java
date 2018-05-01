@@ -8,8 +8,8 @@ import algorithms.DIPLOMA.util.creators.LimitsCreatorDaily;
 import algorithms.DIPLOMA.util.creators.LimitsCreatorWeekly;
 import algorithms.DIPLOMA.util.creators.TeachersCreator;
 import algorithms.DIPLOMA.util.printers.DayPrinter;
-import algorithms.DIPLOMA.util.read_write.impl.XLSParser;
-import algorithms.DIPLOMA.util.read_write.impl.XLSWriter;
+import algorithms.DIPLOMA.util.read_write.XLSParser;
+import algorithms.DIPLOMA.util.read_write.XLSWriter;
 
 import java.io.File;
 import java.util.*;
@@ -41,7 +41,7 @@ public class Main {
         Map<Integer, ArrayList<Day>> gradesTimetable = new HashMap<>();
         DayPrinter dayPrinter = new DayPrinter();
 
-        Integer[] d = {1,2,3,4,5};
+        Integer[] d = {1,2,3,4,5,6};
         List<Integer> days = Arrays.asList(d);
 
         for (int x : days) {

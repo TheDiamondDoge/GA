@@ -1,4 +1,4 @@
-package algorithms.DIPLOMA.util.read_write.impl;
+package algorithms.DIPLOMA.util.read_write;
 
 import org.junit.Before;
 import org.junit.Test;

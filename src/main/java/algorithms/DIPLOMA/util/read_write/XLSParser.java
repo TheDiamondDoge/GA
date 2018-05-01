@@ -1,4 +1,4 @@
-package algorithms.DIPLOMA.util.read_write.impl;
+package algorithms.DIPLOMA.util.read_write;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;

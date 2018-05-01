@@ -100,7 +100,8 @@ public class Day implements Comparable<Day>{
     }
 
     public void weeklyLimitsAdjustment(){
-        LessonLimitsWeekly.adjustmentFroGrade(lessonOnDay, getDay().get(0).getGrade());
+        if (lessonOnDay.size() > 0 && day.size() > 0)
+            LessonLimitsWeekly.adjustmentFroGrade(lessonOnDay, getDay().get(0).getGrade());
     }
 
     @Override

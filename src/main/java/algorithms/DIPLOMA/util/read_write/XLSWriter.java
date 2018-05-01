@@ -1,4 +1,4 @@
-package algorithms.DIPLOMA.util.read_write.impl;
+package algorithms.DIPLOMA.util.read_write;
 
 import algorithms.DIPLOMA.model.*;
 import algorithms.DIPLOMA.util.DataTransform;
@@ -51,14 +51,16 @@ public class XLSWriter {
             ArrayList<Day> genomes = data.get(i);
 
             for (Day day : genomes){
-                int colNum = 0;
-                cell = row.createCell(colNum++);
-                cell.setCellValue(day.getDay().get(0).getGrade());
-                for (Teacher teacher : day.getDay()){
+                if (day.getDay().size() > 0) {
+                    int colNum = 0;
                     cell = row.createCell(colNum++);
-                    cell.setCellValue(teacher.toString());
+                    cell.setCellValue(day.getDay().get(0).getGrade());
+                    for (Teacher teacher : day.getDay()) {
+                        cell = row.createCell(colNum++);
+                        cell.setCellValue(teacher.toString());
+                    }
+                    row = sheet.createRow(rowNum++);
                 }
-                row = sheet.createRow(rowNum++);
             }
         }
     }

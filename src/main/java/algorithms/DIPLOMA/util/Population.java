@@ -28,9 +28,13 @@ public class Population {
         GENES_POOL = TeachersCreator.getTeachersForDay(dayOfTheWeek);
     }
 
-    private void setAmountAvailableTeachersPerLesson(){
-        int dailyLessonLimit = LessonLimitsDaily.getLessonLimit(GRADE);
-        availableTeachersPerLesson = new int[dailyLessonLimit + 1];
+    private void setAmountAvailableTeachersPerLesson(int dayOfTheWeek){
+        int dailyLessonLimit = LessonLimitsDaily.getLessonLimit(GRADE, dayOfTheWeek);
+        if (dailyLessonLimit == 0){
+            availableTeachersPerLesson = new int[]{0,0};
+        } else {
+            availableTeachersPerLesson = new int[dailyLessonLimit + 1];
+        }
         for (Teacher teacher : DAILY_GENES_POOL){
             if (teacher.getLesson() <= dailyLessonLimit) {
                 availableTeachersPerLesson[teacher.getLesson()]++;
@@ -44,7 +48,7 @@ public class Population {
                 .filter((teacher -> teacher.getGrade().equals(GRADE) && teacher.getDayOfTheWeek() == x))
                 .collect(Collectors.toList());
 
-        setAmountAvailableTeachersPerLesson();
+        setAmountAvailableTeachersPerLesson(x);
         lessonsForClassMax = calcTargetSize();
         return Stream.generate(() -> new Day(getRandomListForGenome()))
                 .parallel()
