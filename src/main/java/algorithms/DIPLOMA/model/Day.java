@@ -17,27 +17,27 @@ public class Day implements Comparable<Day>{
 
     public Day(List<Teacher> day) {
         this.setDay(new ArrayList<>(day));
-        this.calcFitness();
+        fitness = calcFitness();
     }
 
     public Day(Day day){
         this.copy(day);
-        this.calcFitness();
+        fitness = calcFitness();
     }
 
     private void copy(Day day){
         this.setDay(new ArrayList<>(day.getDay()));
     }
 
-    public void calcFitness(){
-        fitness = 0;
+    public int calcFitness(){
+        int fitnessValue = 0;
         lessonOnDay = new HashMap<>();
 
         for(int i = 0; i < day.size(); i++){
-            fitness += Math.abs(day.get(i).getLesson() - i - 1);
+            fitnessValue += Math.abs(day.get(i).getLesson() - i - 1);
 
             if (!isCorrectGrade(i)) {
-                fitness += Math.abs(day.get(i).getGrade().hashCode() - GradeDataObject.GRADE.hashCode());
+                fitnessValue += Math.abs(day.get(i).getGrade().hashCode() - GradeDataObject.GRADE.hashCode());
             }
 
             String subjectName = day.get(i).getSubjectName();
@@ -49,8 +49,10 @@ public class Day implements Comparable<Day>{
             }
         }
 
-        fitness += weeklyLimitsInfluence();
-        fitness += duplicateLessons();
+        fitnessValue += weeklyLimitsInfluence();
+        fitnessValue += duplicateLessons();
+
+        return fitnessValue;
     }
 
     private boolean isCorrectGrade(int lessonNumber){

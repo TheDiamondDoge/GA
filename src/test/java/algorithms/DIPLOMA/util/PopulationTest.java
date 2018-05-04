@@ -4,32 +4,17 @@ import algorithms.DIPLOMA.model.Day;
 import algorithms.DIPLOMA.model.Teacher;
 import algorithms.DIPLOMA.util.creators.TeachersCreator;
 import org.junit.Test;
+import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 public class PopulationTest {
     private static Population population;
     private static List<Day> initialPopulation;
-
-   /* @BeforeClass
-    public static void setUp(){
-        createPool();
-        population = new Population();
-        population.initPool(1);
-    }
-
-    private static void createPool(){
-        ArrayList<String> xlsStrings = new ArrayList<>();
-        xlsStrings.add("Russian1;1;1;1");
-        xlsStrings.add("Russian2;2-3;1;1");
-        xlsStrings.add("Russian3;4,6;1;1");
-        xlsStrings.add("Russian4;7;1;1");
-
-        new TeachersCreator(xlsStrings).createTeachers();
-    }*/
 
     @Test
     public void createInitialPopulation() {
@@ -43,39 +28,32 @@ public class PopulationTest {
     @Test
     public void mutateGenome() {
         ArrayList<Teacher> teachers = new ArrayList<>();
-
-        teachers.add(new Teacher("Russian", "subject",1, 1, "1a"));
-        teachers.add(new Teacher("Russian", "subject",1, 1, "1a"));
-        teachers.add(new Teacher("Russian", "subject",1, 1, "1a"));
-        teachers.add(new Teacher("Russian", "subject",1, 1, "1a"));
-        teachers.add(new Teacher("Russian", "subject",1, 1, "1a"));
-        teachers.add(new Teacher("Russian", "subject",1, 1, "1a"));
-        teachers.add(new Teacher("Russian", "subject",1, 1, "1a"));
-        teachers.add(new Teacher("Russian", "subject",1, 1, "1a"));
-        teachers.add(new Teacher("Russian", "subject",1, 1, "1a"));
         teachers.add(new Teacher("Russian", "subject",1, 1, "1a"));
 
         Day day = new Day(teachers);
-        Day mutatedDay = population.mutateGenome(day);
-        String mutatedTeachersName = "";
+        Population mock = mock(Population.class);
+        when(mock.getRandomTeacher()).thenReturn(
+                new Teacher("Randomised", "Randomised",2,2,"1б" ));
 
-        for (Teacher teacher : mutatedDay.getDay()){
-            if (!teacher.getName().equals("Russian")){
-                mutatedTeachersName = teacher.getName();
-            }
-        }
+        Day mutatedDay = mock.mutateGenome(day);
 
-        assertNotEquals(mutatedTeachersName, "");
-        assertNotEquals(mutatedTeachersName, "Russian");
+        assertEquals(mutatedDay.getDay().get(0), "Randomised");
     }
 
     @Test
     public void selectElite() {
-        List<Day> elitePopulation = population.selectElite(initialPopulation, 1);
+        Day day = mock(Day.class);
+        when(day.calcFitness()).thenReturn(0);
 
-        int expectedSizeOfElitePopulation = 1;
-        assertTrue(initialPopulation.size() > 1);
-        assertEquals(expectedSizeOfElitePopulation, elitePopulation.size());
+        List<Day> population = new ArrayList<>();
+        population.add(day);
+        population.add(day);
+        population.add(day);
+
+        List<Day> elitePopulation = new Population().selectElite(population, 2);
+
+        int expectedSizeOfElitePopulation = 2;
+        assertTrue(elitePopulation.size() == expectedSizeOfElitePopulation);
     }
 
     @Test

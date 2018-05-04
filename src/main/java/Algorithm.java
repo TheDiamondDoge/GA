@@ -53,21 +53,22 @@ public class Algorithm {
             for (int x : days) {
                 DailyTimetableCreator.setGradesCreated(0);
                 ArrayList<Day> temp = new ArrayList<>();
+                brCount = 0;
                 while (DailyTimetableCreator.getGradesCreated() != grades.size()) {
                     if (brCount == 10){ continue main;}
+                    brCount++;
                     temp = new ArrayList<>();
                     DailyTimetableCreator.setGradesCreated(0);
                     dayPrinter.printDayOfTheWeek(x);
                     dailyTimetableCreator.initTeachersPool(x);
+//                    Collections.shuffle(grades);
 
                     for (String grade : grades) {
                         GradeDataObject.GRADE = grade;
                         Day day = dailyTimetableCreator.start(x);
                         if (day == null) {
-                            brCount++;
                             break;
                         }
-                        brCount = 0;
                         temp.add(day);
                     }
                 }

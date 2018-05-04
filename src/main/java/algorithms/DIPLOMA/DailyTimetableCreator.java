@@ -5,6 +5,7 @@ import algorithms.DIPLOMA.model.Day;
 import algorithms.DIPLOMA.util.Population;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DailyTimetableCreator {
 
@@ -26,10 +27,13 @@ public class DailyTimetableCreator {
 
             if (population.get(0).getFitness() == 0) {
 
-                System.out.print(GradeDataObject.GRADE + " > ");
-                System.out.println(population.get(0));
+                List<Day> allChallengers = population.stream().filter(q -> q.getFitness() == 0).collect(Collectors.toList());
+                int j = (int) (Math.random() * allChallengers.size());
 
-                pop.deleteGenesFromPool(population.get(0));
+                System.out.print(GradeDataObject.GRADE + " > ");
+                System.out.println(allChallengers.get(j));
+
+                pop.deleteGenesFromPool(allChallengers.get(j));
                 GRADES_CREATED++;
                 return population.get(0);
             }

@@ -13,7 +13,6 @@ import static algorithms.DIPLOMA.data.GradeDataObject.*;
 
 public class Population {
     private static final double ELITE_RATE = 0.1;
-    private static final double SURVIVE_RATE = 0.5;
     private static final double MUTATION_RATE = 0.5;
     private int populationSize = 100;
     private List<Teacher> DAILY_GENES_POOL;
@@ -77,7 +76,7 @@ public class Population {
     }
 
     public Day mutateGenome(Day day) {
-        int extractionPosition = (int) (Math.random() * lessonsForClassMax);
+        int extractionPosition = (int) (Math.random() * day.getDay().size());
         Teacher delta = getRandomTeacher();
 
         ArrayList<Teacher> teachers = day.getDay();
@@ -86,7 +85,7 @@ public class Population {
         return new Day(teachers);
     }
 
-    private Teacher getRandomTeacher(){
+    public Teacher getRandomTeacher(){
         return DAILY_GENES_POOL.get((int) (Math.random() * DAILY_GENES_POOL.size() - 1));
     }
 
@@ -96,8 +95,8 @@ public class Population {
         List<Day> children = selectElite(population, eliteSize);
 
         for (int i = eliteSize; i < populationSize; i++) {
-            int firstRandomGenome = (int) (Math.random() * populationSize * SURVIVE_RATE);
-            int secondRandomGenome = (int) (Math.random() * populationSize * SURVIVE_RATE);
+            int firstRandomGenome = (int) (Math.random() * populationSize);
+            int secondRandomGenome = (int) (Math.random() * populationSize);
             int pointOfMerge = (int) (Math.random() * lessonsForClassMax);
 
             Day day = mergeNewGenome(population.get(firstRandomGenome),
