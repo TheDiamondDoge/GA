@@ -45,6 +45,6 @@ public class Teacher {
 
     @Override
     public String toString() {
-        return name + "-" + grade + "-" + lesson;
+        return name + "-" + grade + "-" + subjectName;
     }
 }

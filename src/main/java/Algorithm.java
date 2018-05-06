@@ -67,6 +67,8 @@ public class Algorithm {
                         GradeDataObject.GRADE = grade;
                         Day day = dailyTimetableCreator.start(x);
                         if (day == null) {
+                            System.out.println(LessonLimitsWeekly.getGradeWeeklyLimit(GradeDataObject.GRADE).toString());
+                            brCount++;
                             break;
                         }
                         temp.add(day);
